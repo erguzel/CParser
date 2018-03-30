@@ -1,4 +1,4 @@
-package com.prs.abstraction;
+package com.prs.abstraction.enumic;
 
 public enum ConstraintTypes {
 

@@ -2,5 +2,5 @@ package com.prs.abstraction.interfaces;
 
 public interface IParse {
 
-     void parse(String [] args);
+     void parse(String [] args) throws Exception;
 }

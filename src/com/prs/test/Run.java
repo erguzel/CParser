@@ -1,29 +1,33 @@
 package com.prs.test;
 
-import com.prs.abstraction.ConstraintTypes;
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.model.CmdParser;
-import com.prs.abstraction.model.DefinedOption;
-import com.prs.abstraction.model.Option;
+import com.prs.abstraction.enumic.ConstraintTypes;
+import com.prs.main.CParser;
+import com.prs.main.DefinedFlag;
+import com.prs.main.DefinedOption;
 
 public class Run {
 
     public static void main(String []args) throws Exception {
 
-        CmdParser cm = new CmdParser();
-        cm.AddOption("np",String.class,ConstraintTypes.Mandatory)
-                .multipleValues(true)
-                .valueSeparator(" ")
+        CParser cm = new CParser();
+        cm.AddOption("np",String.class,ConstraintTypes.Optional)
+                .multipleValues("-")
                 .submit("Number Of Players")
+                .AddOption("st",ConstraintTypes.class,ConstraintTypes.Mandatory)
+                .submit("number of threads")
+                .AddFlag("asd")
+                .submit("clock display")
                 .parse(args);
 
-        for(DefinedOption o : CmdParser.Utility.getOptions()){
+        for(DefinedOption o : CParser.Utility.getOptions()){
 
-            System.out.println(o.get_meaningfulName());
+            System.out.println(o.get_expression() + "--" + o.get_meaningfulName());
         }
 
+        for(DefinedFlag f : CParser.Utility.getFlags()){
 
-
+            System.out.println(f.get_expression() + "- " + f.get_meaningfulName());
+        }
 
 
     }

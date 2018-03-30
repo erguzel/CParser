@@ -1,6 +1,6 @@
-package com.prs.abstraction.model;
+package com.prs.main;
 
-import com.prs.abstraction.ConstraintTypes;
+import com.prs.abstraction.enumic.ConstraintTypes;
 
 public class DefinedOption {
 

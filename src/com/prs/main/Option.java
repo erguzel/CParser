@@ -1,10 +1,11 @@
-package com.prs.abstraction.model;
+package com.prs.main;
 
 
 
-import com.prs.abstraction.ConstraintTypes;
+import com.prs.abstraction.enumic.ConstraintTypes;
 import com.prs.abstraction.interfaces.ICmdParser;
 import com.prs.abstraction.interfaces.IOptioned;
+import com.prs.abstraction.interfaces.ISubmit;
 
 
 public class Option implements IOptioned {
@@ -23,25 +24,20 @@ public class Option implements IOptioned {
         this._cType = _cType;
     }
 
-    @Override
-    public IOptioned multipleValues(boolean choice) {
-        _isMultipleValuesAccepted = choice;
-        return this;
-    }
-
-    @Override
-    public IOptioned valueSeparator(String separator) {
-        _valueSeparator = separator;
-        return this;
-    }
-
 
     @Override
     public ICmdParser submit(String giveMeaningfulName) {
         _meaningfulName = giveMeaningfulName;
 
-        CmdParser.Utility.addOption(new DefinedOption(_isMultipleValuesAccepted,
-                _valueSeparator,_expression,_dataType, _cType,_meaningfulName));
-        return new CmdParser();
+        CParser.Utility.addOption(new DefinedOption(_isMultipleValuesAccepted,
+                _valueSeparator,"-".concat(_expression),_dataType, _cType,_meaningfulName));
+        return new CParser();
+    }
+
+    @Override
+    public ISubmit multipleValues(String valueSeparator) {
+        _valueSeparator = valueSeparator;
+        _isMultipleValuesAccepted = true;
+        return this;
     }
 }
