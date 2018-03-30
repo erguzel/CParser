@@ -1,4 +1,5 @@
-package com.prs.abstraction.com.prs.abstraction;
+package com.prs.abstraction.interfaces;
 
-public class IOptioned {
+public interface IOptioned extends ICmdParser, IParse{
+
 }
