@@ -1,46 +1,45 @@
 package com.prs.main;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
+import com.prs.abstraction.interfaces.IKeyValPair;
 
-public class DefinedOption {
-
-    private boolean _isMultipleValuesAccepted;
-    private String _valueSeparator;
+public class KeyValPair implements IKeyValPair {
 
     private String _expression;
+    private String _valueSeparator;
     private Class _dataType;
-    private ConstraintTypes cType;
+    private ConstraintTypes _consTypee;
     private String _meaningfulName;
 
-    public DefinedOption(boolean _isMultipleValuesAccepted, String _valueSeparator, String _expression, Class _dataType, ConstraintTypes cType, String _meaningfulName) {
-        this._isMultipleValuesAccepted = _isMultipleValuesAccepted;
-        this._valueSeparator = _valueSeparator;
+    public KeyValPair(String _expression, String _valueSeparator, Class _dataType, ConstraintTypes _consTypee, String _meaningfulName) {
         this._expression = _expression;
+        this._valueSeparator = _valueSeparator;
         this._dataType = _dataType;
-        this.cType = cType;
+        this._consTypee = _consTypee;
         this._meaningfulName = _meaningfulName;
     }
 
-    public boolean is_isMultipleValuesAccepted() {
-        return _isMultipleValuesAccepted;
-    }
-
+    @Override
     public String get_valueSeparator() {
         return _valueSeparator;
     }
 
+    @Override
     public String get_expression() {
         return _expression;
     }
 
+    @Override
     public Class get_dataType() {
         return _dataType;
     }
 
+    @Override
     public ConstraintTypes getcType() {
-        return cType;
+        return _consTypee;
     }
 
+    @Override
     public String get_meaningfulName() {
         return _meaningfulName;
     }

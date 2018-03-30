@@ -1,116 +1,107 @@
 package com.prs.main;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.interfaces.IFlagged;
-import com.prs.abstraction.interfaces.IOptioned;
+import com.prs.abstraction.interfaces.*;
+
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CParser implements ICmdParser {
 
-    private  List<Option> _options = new ArrayList<Option>();
+    private  List<OptionHandler> _optionHandlers = new ArrayList<OptionHandler>();
 
-    private  List<Flag> _flags = new ArrayList<Flag>();
+    private  List<FlagHandler> _flagHandlers = new ArrayList<FlagHandler>();
 
-    private Option _option;
+    private OptionHandler _optionHandler;
 
-    private Flag _flag ;
+    private FlagHandler _flagHandler;
+
+    private KeyValPairHandler _kvHandler;
 
     @Override
-    public IOptioned AddOption(String expressio, Class type, ConstraintTypes constraint) {
+    public IOptioned AddOption(String expressio, Class type, ConstraintTypes constraint) throws Exception {
 
-        _option = new Option(expressio,type,constraint);
-        return _option;
+        _optionHandler = new OptionHandler(expressio,type,constraint);
+        return _optionHandler;
     }
 
     @Override
-    public IFlagged AddFlag(String expression) {
-        _flag = new Flag(expression);
-        return _flag;
+    public IFlagged AddFlag(String expression) throws Exception {
+
+        if (CParser.Utility.getFlags().stream().map(a->a.get_expression()).collect(Collectors.toList()).contains(expression)){
+
+            throw  new  Exception(" Error:..." + expression + " option already defined");
+        }
+
+        _flagHandler = new FlagHandler(expression);
+        return _flagHandler;
+    }
+
+    @Override
+    public IKeyValuePaired AddKeyValuePair(String expression, String valueSeparator, Class dataType, ConstraintTypes consTypee) {
+
+        _kvHandler = new KeyValPairHandler(expression,valueSeparator,dataType,consTypee);
+
+        return _kvHandler;
     }
 
     @Override
     public void parse(String[] args) throws Exception {
 
-        checkUnsupported(args);
+        ParserHelper.checkEmptyParams(args);
 
-        checkIfFirstElementIsOptionOrFlag(args[0]);
+        ParserHelper.checkUnsupported(args);
 
-        //parseOptions(args);
+        ParserHelper.checkIfFirstElementIsOptionOrFlag(args[0]);
 
-        //parseFlags(args);
+        ParserHelper.checkValueFreeOptions(args);
 
-    }
+        ParserHelper.parseOptions(args);
 
-    private void checkUnsupported(String[] args) throws Exception {
 
-        for (String arg : args){
-
-            if(arg.trim().startsWith("-")){
-
-                if(!CParser.Utility.getOptions().stream().map(a->a.get_expression()).collect(Collectors.toList()).contains(arg)){
-                    throw new Exception("Error:..."+arg+" parameter does not supported yet");
-                }
-
-            }
-
-        }
-
+        //ParserHelper.parseFlags(args);
 
     }
-
-    private void checkIfFirstElementIsOptionOrFlag(String firstElement) throws Exception {
-        if(!firstElement.startsWith("-")){
-
-            throw new Exception("Error:..." + " values without an option is not accepted");
-
-        }
-    }
-
-
     public static class Utility{
 
-      private static List<DefinedOption> submittedOptions = new ArrayList<>();
+      private static List<IOption> submittedOptions = new ArrayList<>();
 
-      private static List<DefinedFlag> submittedFlags = new ArrayList<>();
+      private static List<IFlag> submittedFlags = new ArrayList<>();
 
-        public static void addOption(DefinedOption opt){
+      private static List<IKeyValPair> sublittedKVPairs = new ArrayList<>();
+
+         static void addOption(IOption opt){
 
             submittedOptions.add(opt);
 
         }
 
-        public static void addFlag(DefinedFlag flg){
+         static void addFlag(Flag flg){
 
              submittedFlags.add(flg);
         }
 
-        public static List<DefinedFlag> getFlags() throws Exception {
+        static void addKvP(IKeyValPair kevalpair){
 
+             sublittedKVPairs.add(kevalpair);
+        }
 
-            if(submittedFlags.isEmpty()){
-
-                throw new Exception("No option defined for this application yet");
-
-            }
+        public static List<IFlag> getFlags() {
 
             return submittedFlags;
 
         }
 
-        public static List<DefinedOption> getOptions() throws Exception {
-
-             if(submittedOptions.isEmpty()){
-
-                 throw new Exception("No option defined for this application yet");
-
-             }
+        public static List<IOption> getOptions()  {
 
             return submittedOptions;
+        }
+
+        public static List<IKeyValPair> getKvPairs(){
+
+            return sublittedKVPairs;
         }
 
 

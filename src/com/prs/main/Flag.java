@@ -1,24 +1,25 @@
 package com.prs.main;
 
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.interfaces.IFlagged;
+import com.prs.abstraction.interfaces.IFlag;
 
-public class Flag implements IFlagged{
+class Flag implements IFlag {
+
 
     private String _expression;
+
     private String _meaningfulName;
 
-    public Flag(String expression) {
-        this._expression = expression;
+    public Flag(String _expression, String _meaningfulName) {
+        this._expression = _expression;
+        this._meaningfulName = _meaningfulName;
     }
 
-    @Override
-    public ICmdParser submit(String giveMeaningfulName) {
-        _meaningfulName = giveMeaningfulName;
-
-        CParser.Utility.addFlag(new DefinedFlag("-".concat(_expression),_meaningfulName));
-
-        return new CParser();
-
+    public String get_expression() {
+        return _expression;
     }
+
+    public String get_meaningfulName() {
+        return _meaningfulName;
+    }
+
 }

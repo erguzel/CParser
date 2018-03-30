@@ -1,43 +1,48 @@
 package com.prs.main;
 
-
-
 import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.interfaces.IOptioned;
-import com.prs.abstraction.interfaces.ISubmit;
+import com.prs.abstraction.interfaces.IOption;
 
+class Option implements IOption {
 
-public class Option implements IOptioned {
     private boolean _isMultipleValuesAccepted;
     private String _valueSeparator;
 
     private String _expression;
     private Class _dataType;
-    private ConstraintTypes _cType;
-
+    private ConstraintTypes cType;
     private String _meaningfulName;
 
-    public Option(String _expression, Class _dataType, ConstraintTypes _cType) {
+    public Option(boolean _isMultipleValuesAccepted, String _valueSeparator, String _expression, Class _dataType, ConstraintTypes cType, String _meaningfulName) {
+        this._isMultipleValuesAccepted = _isMultipleValuesAccepted;
+        this._valueSeparator = _valueSeparator;
         this._expression = _expression;
         this._dataType = _dataType;
-        this._cType = _cType;
+        this.cType = cType;
+        this._meaningfulName = _meaningfulName;
     }
 
-
-    @Override
-    public ICmdParser submit(String giveMeaningfulName) {
-        _meaningfulName = giveMeaningfulName;
-
-        CParser.Utility.addOption(new DefinedOption(_isMultipleValuesAccepted,
-                _valueSeparator,"-".concat(_expression),_dataType, _cType,_meaningfulName));
-        return new CParser();
+    public boolean is_isMultipleValuesAccepted() {
+        return _isMultipleValuesAccepted;
     }
 
-    @Override
-    public ISubmit multipleValues(String valueSeparator) {
-        _valueSeparator = valueSeparator;
-        _isMultipleValuesAccepted = true;
-        return this;
+    public String get_valueSeparator() {
+        return _valueSeparator;
+    }
+
+    public String get_expression() {
+        return _expression;
+    }
+
+    public Class get_dataType() {
+        return _dataType;
+    }
+
+    public ConstraintTypes getcType() {
+        return cType;
+    }
+
+    public String get_meaningfulName() {
+        return _meaningfulName;
     }
 }

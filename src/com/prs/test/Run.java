@@ -1,9 +1,12 @@
 package com.prs.test;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
+import com.prs.abstraction.interfaces.IFlag;
+import com.prs.abstraction.interfaces.IOption;
 import com.prs.main.CParser;
-import com.prs.main.DefinedFlag;
-import com.prs.main.DefinedOption;
+
+import java.util.List;
+
 
 public class Run {
 
@@ -11,24 +14,29 @@ public class Run {
 
         CParser cm = new CParser();
         cm.AddOption("np",String.class,ConstraintTypes.Optional)
-                .multipleValues("-")
-                .submit("Number Of Players")
-                .AddOption("st",ConstraintTypes.class,ConstraintTypes.Mandatory)
-                .submit("number of threads")
-                .AddFlag("asd")
-                .submit("clock display")
+                .multipleValues(" ")
+                .submit("param1")
+                .AddOption("nt",Integer.class,ConstraintTypes.Mandatory)
+                .multipleValues(",")
+                .submit("param2")
+                .AddFlag("fl")
+                .submit("flag1")
+                .AddKeyValuePair("std","=",Integer.class,ConstraintTypes.Mandatory)
+                .submit("KeyValuPair")
                 .parse(args);
 
-        for(DefinedOption o : CParser.Utility.getOptions()){
+        List<IOption> ide = CParser.Utility.getOptions();
 
-            System.out.println(o.get_expression() + "--" + o.get_meaningfulName());
+        List<IFlag> fld = CParser.Utility.getFlags();
+
+        for (IOption ifd : ide){
+            System.out.println(ifd.get_expression());
         }
 
-        for(DefinedFlag f : CParser.Utility.getFlags()){
-
-            System.out.println(f.get_expression() + "- " + f.get_meaningfulName());
+        for (IFlag ff : fld){
+           System.out.println( ff.get_meaningfulName());
         }
-
-
     }
+
+
 }
