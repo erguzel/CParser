@@ -1,4 +1,4 @@
 package com.prs.abstraction.interfaces;
 
-public interface IFlagged extends ICmdParser,IParse{
+public interface IFlagged extends ISubmit{
 }
