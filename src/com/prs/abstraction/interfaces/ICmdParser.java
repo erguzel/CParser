@@ -1,8 +1,10 @@
 package com.prs.abstraction.interfaces;
 
-public interface ICmdParser {
+import com.prs.abstraction.ConstraintTypes;
 
-     IOptioned AddOption(String name, Class type, String constraint);
+public interface ICmdParser extends IParse {
 
-     IFlagged AddFlag(String name, String constraint);
+     IOptioned AddOption(String name, Class type, ConstraintTypes constraint);
+
+     IFlagged AddFlag(String name, ConstraintTypes constraint);
 }
