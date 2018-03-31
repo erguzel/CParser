@@ -3,13 +3,10 @@ package com.prs.main;
 import com.prs.abstraction.enumic.ConstraintTypes;
 import com.prs.abstraction.interfaces.DataTypeParser;
 import com.prs.abstraction.interfaces.IOption;
-
-import java.io.StringReader;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 class Option extends DataTypeParser implements IOption {
 
@@ -17,14 +14,14 @@ class Option extends DataTypeParser implements IOption {
     private String _valueSeparator;
 
     private String _expression;
-    private Class _dataType;
+    private Class<? extends Object> _dataType;
     private ConstraintTypes cType;
     private String _meaningfulName;
 
     private List<String> _RawValues = new ArrayList<>();
-    private List _values = new LinkedList();
+    private List<Object> _values = new LinkedList<Object>();
 
-    public Option(boolean _isMultipleValuesAccepted, String _valueSeparator, String _expression, Class _dataType, ConstraintTypes cType, String _meaningfulName) {
+    public Option(boolean _isMultipleValuesAccepted, String _valueSeparator, String _expression, Class<? extends Object> _dataType, ConstraintTypes cType, String _meaningfulName) {
         this._isMultipleValuesAccepted = _isMultipleValuesAccepted;
         this._valueSeparator = _valueSeparator;
         this._expression = _expression;
@@ -45,7 +42,7 @@ class Option extends DataTypeParser implements IOption {
         return _expression;
     }
 
-    public Class get_dataType() {
+    public Class<? extends Object> get_dataType() {
         return _dataType;
     }
 
@@ -78,7 +75,7 @@ class Option extends DataTypeParser implements IOption {
     }
 
     @Override
-    public List getValues() {
+    public List<Object> getValues() {
 
         return _values;
     }

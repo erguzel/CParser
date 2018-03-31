@@ -8,13 +8,13 @@ public class KeyValPair extends DataTypeParser implements IKeyValPair {
 
     private String _expression;
     private String _valueSeparator;
-    private Class _dataType;
+    private Class<? extends Object> _dataType;
     private ConstraintTypes _consTypee;
     private String _meaningfulName;
 
     private Object _value;
 
-    public KeyValPair(String _expression, String _valueSeparator, Class _dataType, ConstraintTypes _consTypee, String _meaningfulName) {
+    public KeyValPair(String _expression, String _valueSeparator, Class<? extends Object> _dataType, ConstraintTypes _consTypee, String _meaningfulName) {
         this._expression = _expression;
         this._valueSeparator = _valueSeparator;
         this._dataType = _dataType;
@@ -33,7 +33,7 @@ public class KeyValPair extends DataTypeParser implements IKeyValPair {
     }
 
     @Override
-    public Class get_dataType() {
+    public Class<? extends Object> get_dataType() {
         return _dataType;
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class DataTypeParser {
 
-    public void ParseDataType(String value, List targetList, Class parseTo) throws Exception {
+    public void ParseDataType(String value, List<Object> targetList, Class<? extends Object> parseTo) throws Exception {
 
         switch (parseTo.getSimpleName()) {
 
@@ -13,6 +13,7 @@ public abstract class DataTypeParser {
                 try {
 
                     targetList.add(Integer.parseInt(value));
+                    break;
 
                 } catch (NumberFormatException e) {
 
@@ -20,13 +21,26 @@ public abstract class DataTypeParser {
 
                 }
 
-                break;
 
             case "int":
 
                 try {
 
                     targetList.add(Integer.parseInt(value));
+                    break;
+
+                } catch (NumberFormatException e) {
+
+                    throw new Exception("Error:... " + value + " must be an integer value");
+
+                }
+
+            case "double":
+
+                try {
+
+                    targetList.add(Double.parseDouble(value));
+                    break;
 
                 } catch (NumberFormatException e) {
 
@@ -39,69 +53,60 @@ public abstract class DataTypeParser {
                 try {
 
                     targetList.add(Double.parseDouble(value));
+                    break;
 
                 } catch (NumberFormatException e) {
 
                     throw new Exception("Error:... " + value + " must be an integer value");
 
                 }
-                break;
-
-            case "double":
-                try {
-
-                    targetList.add(Double.parseDouble(value));
-
-                } catch (NumberFormatException e) {
-
-                    throw new Exception("Error:... " + value + " must be an integer value");
-
-                }
-                break;
 
             case "Float":
                 try {
 
                     targetList.add(Float.parseFloat(value));
+                    break;
 
                 } catch (NumberFormatException e) {
 
                     throw new Exception("Error:... " + value + " must be an integer value");
 
                 }
-                break;
 
             case "float":
                 try {
 
                     targetList.add(Float.parseFloat(value));
+                    break;
 
                 } catch (NumberFormatException e) {
 
                     throw new Exception("Error:... " + value + " must be an integer value");
 
                 }
-                break;
 
             case "String":
 
                 targetList.add(value);
+
                 break;
 
             default:
 
-                throw new Exception("Error... " +parseTo.getSimpleName() + " Datatype is not supported yet.");
+                throw new Exception("Error... " + parseTo.getSimpleName() + " Datatype is not supported yet.");
         }
     }
 
-    public Object ParseDataType(String value, Class parseTo) throws Exception {
+    public Object ParseDataType(String value, Class<? extends Object> parseTo) throws Exception {
 
         switch (parseTo.getSimpleName()) {
 
             case "Integer":
 
                 try {
+
                     return Integer.parseInt(value);
+
                 } catch (NumberFormatException e) {
 
                     throw new Exception("Error:... " + value + " must be an integer value");
@@ -171,9 +176,9 @@ public abstract class DataTypeParser {
 
                 return value;
 
-                default:
+            default:
 
-                throw new Exception("Error... " +parseTo.getSimpleName() + " Datatype is not supported yet.");
+                throw new Exception("Error... " + parseTo.getSimpleName() + " Datatype is not supported yet.");
         }
     }
 }

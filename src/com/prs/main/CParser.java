@@ -21,7 +21,7 @@ public class CParser implements ICmdParser {
     private KeyValPairHandler _kvHandler;
 
     @Override
-    public IOptioned AddOption(String expressio, Class type, ConstraintTypes constraint) throws Exception {
+    public IOptioned AddOption(String expressio, Class<? extends Object> type, ConstraintTypes constraint) throws Exception {
 
         _optionHandler = new OptionHandler(expressio,type,constraint);
         return _optionHandler;
@@ -40,7 +40,7 @@ public class CParser implements ICmdParser {
     }
 
     @Override
-    public IKeyValuePaired AddKeyValuePair(String expression, String valueSeparator, Class dataType, ConstraintTypes consTypee) {
+    public IKeyValuePaired AddKeyValuePair(String expression, String valueSeparator, Class<? extends Object> dataType, ConstraintTypes consTypee) {
 
         _kvHandler = new KeyValPairHandler(expression,valueSeparator,dataType,consTypee);
 

@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 public class KeyValPairHandler implements IKeyValuePaired {
     private String _expression;
     private String _valueSeparator;
-    private Class _dataType;
+    private Class<? extends Object> _dataType;
     private ConstraintTypes _consTypee;
     private String _meaningfulName;
 
-    public KeyValPairHandler(String _expression, String _valueSeparator, Class _dataType, ConstraintTypes _consTypee) {
+    public KeyValPairHandler(String _expression, String _valueSeparator, Class<? extends Object> _dataType, ConstraintTypes _consTypee) {
         this._expression = _expression;
         this._valueSeparator = _valueSeparator;
         this._dataType = _dataType;

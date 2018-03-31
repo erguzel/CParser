@@ -5,7 +5,9 @@ import java.util.List;
 public interface IMultipleValued {
 
     void addValue(String value) throws Exception;
+
     void addValueRange(String[] valueRange) throws Exception;
-    List<String > getValues();
+
+    List<? extends Object > getValues();
 
 }

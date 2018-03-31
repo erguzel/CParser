@@ -16,13 +16,13 @@ class OptionHandler implements IOptioned {
     private String _valueSeparator = " ";
 
     private String _expression;
-    private Class _dataType;
+    private Class<? extends Object> _dataType;
     private ConstraintTypes _cType;
 
     private String _meaningfulName;
 
 
-    public OptionHandler(String _expression, Class _dataType, ConstraintTypes _cType) {
+    public OptionHandler(String _expression, Class<? extends Object> _dataType, ConstraintTypes _cType) {
         this._expression = _expression;
         this._dataType = _dataType;
         this._cType = _cType;

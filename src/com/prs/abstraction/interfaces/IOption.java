@@ -2,7 +2,6 @@ package com.prs.abstraction.interfaces;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public interface IOption extends IMultipleValued {
@@ -11,13 +10,13 @@ public interface IOption extends IMultipleValued {
 
      String get_expression();
 
-     Class get_dataType();
+     Class<? extends Object> get_dataType();
 
      ConstraintTypes getcType();
 
      String get_meaningfulName();
 
-     List getValues();
+     List<? extends  Object> getValues();
 
 
 }

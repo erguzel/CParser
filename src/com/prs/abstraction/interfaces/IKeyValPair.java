@@ -8,7 +8,7 @@ public interface IKeyValPair extends IValued {
 
      String get_expression();
 
-     Class get_dataType();
+     Class<? extends Object> get_dataType();
 
      ConstraintTypes getcType();
 
