@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 
-public class Run {
+class Run {
 
     public static void main(String []args) throws Exception {
 
