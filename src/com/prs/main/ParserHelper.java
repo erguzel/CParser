@@ -9,28 +9,28 @@ public class ParserHelper {
 
     public static void checkUnsupported(String[] args) throws Exception {
 
-        List<String > _suportedList = CParser.Utility.getOptions()
+        List<String> _suportedList = CParser.Utility.getOptions()
                 .stream()
-                .map(a->a.get_expression())
+                .map(a -> a.get_expression())
                 .collect(Collectors.toList());
 
         _suportedList.addAll(CParser.Utility.getFlags().stream()
-                .map(c->c.get_expression())
+                .map(c -> c.get_expression())
                 .collect(Collectors.toList()));
 
-        for (String arg : args){
+        for (String arg : args) {
 
-            if(arg.trim().startsWith("-")){
+            if (arg.trim().startsWith("-")) {
 
-                if(!_suportedList.contains(arg.trim())){
+                if (!_suportedList.contains(arg.trim())) {
 
                     boolean isKvP;
 
                     isKvP = CParser.Utility.getKvPairs().stream()
-                            .anyMatch(a->arg.startsWith(a.get_expression()));
+                            .anyMatch(a -> arg.startsWith(a.get_expression()));
 
-                    if(!isKvP){
-                        throw new Exception("Error:..."+arg+" argument does not supported yet");
+                    if (!isKvP) {
+                        throw new Exception("Error:..." + arg + " argument does not supported yet");
                     }
 
                 }
@@ -43,16 +43,16 @@ public class ParserHelper {
     }
 
     public static void checkIfFirstElementIsOptionOrFlag(String firstElement) throws Exception {
-        if(!firstElement.startsWith("-")){
+        if (!firstElement.startsWith("-")) {
 
             throw new Exception("Error:..." + " values without an option is not accepted");
 
         }
     }
 
-    public static void checkEmptyParams(String [] args) throws Exception {
+    public static void checkEmptyParams(String[] args) throws Exception {
 
-        if(args.length ==0){
+        if (args.length == 0) {
 
             throw new Exception("Error:.. There are no arguments to parse");
 
@@ -60,34 +60,34 @@ public class ParserHelper {
 
     }
 
-    public static void checkValueFreeOptions(String [] args) throws Exception {
+    public static void checkValueFreeOptions(String[] args) throws Exception {
         String arg;
         boolean isProvidedOption;
-        boolean flag=false;
+        boolean flag = false;
         boolean isExistingOption;
 
-        for(int s = 0; s<args.length; s++){
+        for (int s = 0; s < args.length; s++) {
 
             arg = args[s];
 
             isProvidedOption = args[s].startsWith("-");
-            isExistingOption = CParser.Utility.getOptions().stream().map(a->a.get_expression()).collect(Collectors.toList()).contains(arg);
+            isExistingOption = CParser.Utility.getOptions().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(arg);
 
-            if(isProvidedOption & isExistingOption){
+            if (isProvidedOption & isExistingOption) {
 
-                if(flag){
+                if (flag) {
 
                     throw new Exception("option without value is not accepted");
 
                 }
                 flag = true;
                 continue;
-           }
-           else {flag = false;}
+            } else {
+                flag = false;
+            }
 
-            System.out.println(arg);
         }
-        if (flag){
+        if (flag) {
 
             throw new Exception("option without value is not accepted");
         }
@@ -96,41 +96,142 @@ public class ParserHelper {
 
     public static void parseOptions(String[] args) throws Exception {
 
-        boolean isOption=false;
+        boolean isOption = false;
+        String optionExpression = " ";
+
+        for (String arg : args) {
+
+            if (arg.trim().startsWith("-")) {
+
+                isOption = CParser.Utility.getOptions()
+                        .stream()
+                        .map(a -> a.get_expression())
+                        .anyMatch(b -> b.contains(arg.trim()));
+
+                optionExpression = arg;
+
+                continue;
+            }
+
+            if (isOption) {
+
+                String finalOptionExpression = optionExpression;
+
+                if (CParser.Utility.getOptions().stream().filter(a -> a.get_expression().equals(finalOptionExpression)).findAny().get().get_valueSeparator().equals(" ")) {
+
+                    CParser.Utility.getOptions().stream()
+                            .filter(x -> x.get_expression().equals(finalOptionExpression))
+                            .collect(Collectors.toList())
+                            .forEach(a -> a.addValue(arg.trim()));
+
+                } else {
+
+                    String[] values;
+
+                    String valueSeparator = CParser.Utility.getOptions()
+                            .stream()
+                            .filter(a -> a.get_expression().equals(finalOptionExpression))
+                            .findAny()
+                            .get()
+                            .get_valueSeparator();
+                    if (arg.contains(valueSeparator)) {
+                        values = arg.trim().split(valueSeparator.trim());
+
+                    } else {
+
+                        throw new Exception("Error:... Defined " + "'".concat(valueSeparator).concat("'") + " and provided value separator does not match");
+                    }
+
+
+                    CParser.Utility.getOptions().stream()
+                            .filter(a -> a.get_expression().equals(finalOptionExpression))
+                            .forEach(x -> x.addValueRange(values));
+
+                }
+
+            }
+
+        }
+
+    }
+
+    public static void parseKvP(String[] args) throws Exception {
+
+        boolean isKvP = false;
+        String kvpExpression = " ";
+
+        for (String arg : args) {
+
+            if (arg.trim().startsWith("-")) {
+
+                isKvP = CParser.Utility.getKvPairs().stream()
+                        .anyMatch(a -> arg.startsWith(a.get_expression()));
+
+                if (isKvP) {
+
+                    kvpExpression = arg.trim();
+
+                    String finalKvPExpression = kvpExpression;
+
+                    String valueSeparator = CParser.Utility.getKvPairs()
+                            .stream()
+                            .filter(a ->arg.startsWith(a.get_expression()))
+                            .findAny()
+                            .get()
+                            .get_valueSeparator();
+
+
+                    String[] values;
+
+                    if (arg.contains(valueSeparator)) {
+
+                        values = arg.trim().split(valueSeparator.trim());
+
+                    } else {
+
+                        throw new Exception("Error:... Defined " + "'".concat(valueSeparator).concat("'") + " and provided value separator does not match");
+                    }
+
+                    CParser.Utility.getKvPairs().stream()
+                            .filter(a -> arg.startsWith(a.get_expression()))
+                            .forEach(x -> x.setValue(values[1]));
+
+                }
+
+            }
+
+        }
+
+    }
+
+    private static void parseFlgs(String[] args) {
+
         boolean isFlag = false;
-        IOption df;
-        for (String arg: args){
+        String flagExpression = " ";
 
-             if(arg.trim().startsWith("-")){
+        for (String arg : args) {
 
-                 isOption = CParser.Utility.getOptions()
-                         .stream()
-                         .map(a->a.get_expression())
-                         .anyMatch(b->b.contains(arg.trim()));
+            if (arg.startsWith("-")) {
 
-                 isFlag = CParser.Utility.getFlags()
-                         .stream()
-                         .map(a->a.get_expression())
-                         .anyMatch(b->b.contains(arg.trim()));
+                isFlag = CParser.Utility.getFlags()
+                        .stream()
+                        .map(a -> a.get_expression())
+                        .anyMatch(b -> b.contains(arg.trim()));
 
-                 continue;
-             }
+                flagExpression = arg.trim();
 
-            if(isOption){
+                if (isFlag) {
 
-               System.out.println("We are jhee");
+                    String finalflagExpression = flagExpression;
 
+
+                }
             }
 
 
         }
-    }
-
-    private static void parseFlgs(String[] arg){
-
 
     }
-
 
 
 }

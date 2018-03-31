@@ -2,7 +2,7 @@ package com.prs.abstraction.interfaces;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
 
-public interface IKeyValPair {
+public interface IKeyValPair extends IValued {
 
      String get_valueSeparator() ;
 

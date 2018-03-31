@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 
 class OptionHandler implements IOptioned {
+
     private boolean _isMultipleValuesAccepted;
     private String _valueSeparator = " ";
 
@@ -19,6 +20,7 @@ class OptionHandler implements IOptioned {
     private ConstraintTypes _cType;
 
     private String _meaningfulName;
+
 
     public OptionHandler(String _expression, Class _dataType, ConstraintTypes _cType) {
         this._expression = _expression;
@@ -48,4 +50,5 @@ class OptionHandler implements IOptioned {
         _isMultipleValuesAccepted = true;
         return this;
     }
+
 }

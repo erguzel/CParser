@@ -3,6 +3,9 @@ package com.prs.main;
 import com.prs.abstraction.enumic.ConstraintTypes;
 import com.prs.abstraction.interfaces.IOption;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Option implements IOption {
 
     private boolean _isMultipleValuesAccepted;
@@ -12,6 +15,8 @@ class Option implements IOption {
     private Class _dataType;
     private ConstraintTypes cType;
     private String _meaningfulName;
+
+    private List<String> _values = new ArrayList<>();
 
     public Option(boolean _isMultipleValuesAccepted, String _valueSeparator, String _expression, Class _dataType, ConstraintTypes cType, String _meaningfulName) {
         this._isMultipleValuesAccepted = _isMultipleValuesAccepted;
@@ -44,5 +49,25 @@ class Option implements IOption {
 
     public String get_meaningfulName() {
         return _meaningfulName;
+    }
+
+    @Override
+    public void addValue(String value) {
+        _values.add(value);
+    }
+
+    @Override
+    public void addValueRange(String[] valueRange) {
+
+        for(String val : valueRange){
+
+            _values.add(val);
+
+        }
+    }
+
+    @Override
+    public List<String> getValues() {
+        return _values;
     }
 }

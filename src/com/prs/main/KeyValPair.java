@@ -3,6 +3,8 @@ package com.prs.main;
 import com.prs.abstraction.enumic.ConstraintTypes;
 import com.prs.abstraction.interfaces.IKeyValPair;
 
+import java.util.List;
+
 public class KeyValPair implements IKeyValPair {
 
     private String _expression;
@@ -10,6 +12,8 @@ public class KeyValPair implements IKeyValPair {
     private Class _dataType;
     private ConstraintTypes _consTypee;
     private String _meaningfulName;
+
+    private String _value;
 
     public KeyValPair(String _expression, String _valueSeparator, Class _dataType, ConstraintTypes _consTypee, String _meaningfulName) {
         this._expression = _expression;
@@ -42,5 +46,17 @@ public class KeyValPair implements IKeyValPair {
     @Override
     public String get_meaningfulName() {
         return _meaningfulName;
+    }
+
+
+    @Override
+    public void setValue(String value) {
+
+        _value = value;
+    }
+
+    @Override
+    public String getValue() {
+        return _value;
     }
 }

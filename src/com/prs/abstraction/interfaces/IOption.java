@@ -2,7 +2,7 @@ package com.prs.abstraction.interfaces;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
 
-public interface IOption {
+public interface IOption extends IMultipleValued {
 
      String get_valueSeparator() ;
 
@@ -13,4 +13,6 @@ public interface IOption {
      ConstraintTypes getcType();
 
      String get_meaningfulName();
+
+
 }

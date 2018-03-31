@@ -60,7 +60,7 @@ public class CParser implements ICmdParser {
 
         ParserHelper.parseOptions(args);
 
-
+        ParserHelper.parseKvP(args);
         //ParserHelper.parseFlags(args);
 
     }
