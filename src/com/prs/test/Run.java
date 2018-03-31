@@ -6,6 +6,7 @@ import com.prs.abstraction.interfaces.IKeyValPair;
 import com.prs.abstraction.interfaces.IOption;
 import com.prs.main.CParser;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 
@@ -15,14 +16,12 @@ public class Run {
 
         CParser cm = new CParser();
         cm.AddOption("np",String.class,ConstraintTypes.Optional)
-                .multipleValues(" ")
                 .submit("np param")
-                .AddOption("nt",Integer.class,ConstraintTypes.Optional)
-                .multipleValues(",")
+                .AddOption("nt",float.class,ConstraintTypes.Optional)
                 .submit("nt param")
                 .AddFlag("fl")
                 .submit("flag1")
-                .AddKeyValuePair("std","=",Integer.class,ConstraintTypes.Optional)
+                .AddKeyValuePair("std","=",String.class,ConstraintTypes.Optional)
                 .submit("KeyValuPair")
                 .parse(args);
 
@@ -41,6 +40,8 @@ public class Run {
 
             System.out.println(kvp.get_meaningfulName()+": " + kvp.getValue());
         }
+
+
     }
 
 

@@ -2,7 +2,9 @@ package com.prs.abstraction.interfaces;
 
 public interface IValued {
 
-    void setValue(String value);
+    void setValue(String value) throws Exception;
 
-    String  getValue();
+    Object  getValue();
+
+
 }

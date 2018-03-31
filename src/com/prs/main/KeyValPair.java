@@ -1,11 +1,10 @@
 package com.prs.main;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
+import com.prs.abstraction.interfaces.DataTypeParser;
 import com.prs.abstraction.interfaces.IKeyValPair;
 
-import java.util.List;
-
-public class KeyValPair implements IKeyValPair {
+public class KeyValPair extends DataTypeParser implements IKeyValPair {
 
     private String _expression;
     private String _valueSeparator;
@@ -13,7 +12,7 @@ public class KeyValPair implements IKeyValPair {
     private ConstraintTypes _consTypee;
     private String _meaningfulName;
 
-    private String _value;
+    private Object _value;
 
     public KeyValPair(String _expression, String _valueSeparator, Class _dataType, ConstraintTypes _consTypee, String _meaningfulName) {
         this._expression = _expression;
@@ -50,13 +49,15 @@ public class KeyValPair implements IKeyValPair {
 
 
     @Override
-    public void setValue(String value) {
+    public void setValue(String value) throws Exception {
+
+        ParseDataType(value, _dataType);
 
         _value = value;
     }
 
     @Override
-    public String getValue() {
+    public Object getValue() {
         return _value;
     }
 }

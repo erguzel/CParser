@@ -1,12 +1,17 @@
 package com.prs.main;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
+import com.prs.abstraction.interfaces.DataTypeParser;
 import com.prs.abstraction.interfaces.IOption;
 
+import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-class Option implements IOption {
+class Option extends DataTypeParser implements IOption {
 
     private boolean _isMultipleValuesAccepted;
     private String _valueSeparator;
@@ -16,7 +21,8 @@ class Option implements IOption {
     private ConstraintTypes cType;
     private String _meaningfulName;
 
-    private List<String> _values = new ArrayList<>();
+    private List<String> _RawValues = new ArrayList<>();
+    private List _values = new LinkedList();
 
     public Option(boolean _isMultipleValuesAccepted, String _valueSeparator, String _expression, Class _dataType, ConstraintTypes cType, String _meaningfulName) {
         this._isMultipleValuesAccepted = _isMultipleValuesAccepted;
@@ -52,22 +58,30 @@ class Option implements IOption {
     }
 
     @Override
-    public void addValue(String value) {
-        _values.add(value);
+    public void addValue(String value) throws Exception {
+
+        _RawValues.add(value);
+
+        ParseDataType(value,_values,_dataType);
     }
 
     @Override
-    public void addValueRange(String[] valueRange) {
+    public void addValueRange(String[] valueRange) throws Exception {
 
         for(String val : valueRange){
 
-            _values.add(val);
+            _RawValues.add(val);
+
+            addValue(val);
 
         }
     }
 
     @Override
-    public List<String> getValues() {
+    public List getValues() {
+
         return _values;
     }
+
+
 }

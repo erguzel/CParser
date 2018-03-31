@@ -1,9 +1,11 @@
 package com.prs.main;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
+import com.prs.abstraction.interfaces.IOption;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class ParserHelper {
@@ -123,7 +125,14 @@ public class ParserHelper {
                     CParser.Utility.getOptions().stream()
                             .filter(x -> x.get_expression().equals(finalOptionExpression))
                             .collect(Collectors.toList())
-                            .forEach(a -> a.addValue(arg.trim()));
+                            .forEach(a -> {
+                                try {
+                                    a.addValue(arg.trim());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    System.exit(1);
+                                }
+                            });
 
                 } else {
 
@@ -146,7 +155,13 @@ public class ParserHelper {
 
                     CParser.Utility.getOptions().stream()
                             .filter(a -> a.get_expression().equals(finalOptionExpression))
-                            .forEach(x -> x.addValueRange(values));
+                            .forEach(x -> {
+                                try {
+                                    x.addValueRange(values);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
 
                 }
 
@@ -195,7 +210,13 @@ public class ParserHelper {
 
                     CParser.Utility.getKvPairs().stream()
                             .filter(a -> arg.startsWith(a.get_expression()))
-                            .forEach(x -> x.setValue(values[1]));
+                            .forEach(x -> {
+                                try {
+                                    x.setValue(values[1]);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
 
                 }
 
@@ -279,4 +300,5 @@ public class ParserHelper {
 
 
     }
+
 }
