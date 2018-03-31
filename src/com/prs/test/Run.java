@@ -17,12 +17,12 @@ public class Run {
         cm.AddOption("np",String.class,ConstraintTypes.Optional)
                 .multipleValues(" ")
                 .submit("np param")
-                .AddOption("nt",Integer.class,ConstraintTypes.Mandatory)
+                .AddOption("nt",Integer.class,ConstraintTypes.Optional)
                 .multipleValues(",")
                 .submit("nt param")
                 .AddFlag("fl")
                 .submit("flag1")
-                .AddKeyValuePair("std","=",Integer.class,ConstraintTypes.Mandatory)
+                .AddKeyValuePair("std","=",Integer.class,ConstraintTypes.Optional)
                 .submit("KeyValuPair")
                 .parse(args);
 

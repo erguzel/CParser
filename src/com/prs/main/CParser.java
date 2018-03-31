@@ -58,6 +58,8 @@ public class CParser implements ICmdParser {
 
         ParserHelper.checkValueFreeOptions(args);
 
+        ParserHelper.checkMandatories(args);
+
         ParserHelper.parseOptions(args);
 
         ParserHelper.parseKvP(args);

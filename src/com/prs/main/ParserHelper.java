@@ -1,7 +1,8 @@
 package com.prs.main;
 
-import com.prs.abstraction.interfaces.IOption;
+import com.prs.abstraction.enumic.ConstraintTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -204,6 +205,9 @@ public class ParserHelper {
 
     }
 
+    /*
+    TODO
+     */
     private static void parseFlgs(String[] args) {
 
         boolean isFlag = false;
@@ -233,5 +237,46 @@ public class ParserHelper {
 
     }
 
+    public static void checkMandatories(String[] args) throws Exception {
 
+        boolean anyMandatoryOption = CParser.Utility.getOptions().stream()
+                .anyMatch(a->a.getcType() == ConstraintTypes.Mandatory);
+
+        if(anyMandatoryOption){
+
+            List<String > mandatories = CParser.Utility.getOptions().stream()
+                    .filter(a->a.getcType() == ConstraintTypes.Mandatory)
+                    .map(b->b.get_expression())
+                    .collect(Collectors.toList());
+
+
+            mandatories.addAll(CParser.Utility.getKvPairs().stream()
+            .filter(a->a.getcType() == ConstraintTypes.Mandatory)
+            .map(b->b.get_expression()).collect(Collectors.toList()));
+
+            List<String> allOptions = new ArrayList<>();
+            for(String s : args){
+
+                if(s.trim().startsWith("-")){
+
+                    allOptions.add(s);
+
+                }
+
+            }
+
+            if(!allOptions.containsAll(mandatories)){
+
+                StringBuilder sb = new StringBuilder();
+
+                mandatories.forEach(a->sb.append(a).append(" "));
+
+             throw new Exception("Error:... Mandatory "+ sb.toString()  + " options omited");
+
+            }
+
+        }
+
+
+    }
 }
