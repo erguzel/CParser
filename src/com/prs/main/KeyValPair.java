@@ -49,7 +49,7 @@ public class KeyValPair extends DataTypeParser implements IKeyValPair {
 
 
     @Override
-    public void setValue(String value) throws Exception {
+    public void setValue(Object value) throws Exception {
 
         ParseDataType(value, _dataType);
 

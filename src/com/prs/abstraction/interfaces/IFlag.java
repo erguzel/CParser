@@ -1,6 +1,6 @@
 package com.prs.abstraction.interfaces;
 
-public interface IFlag {
+public interface IFlag extends IValued {
 
 
     public String get_expression();

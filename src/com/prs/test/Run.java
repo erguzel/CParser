@@ -21,6 +21,8 @@ public class Run {
                 .submit("nt param")
                 .AddFlag("fl")
                 .submit("flag1")
+                .AddFlag("abc")
+                .submit("abcFlag")
                 .AddKeyValuePair("std","=",String.class,ConstraintTypes.Optional)
                 .submit("KeyValuPair")
                 .parse(args);
@@ -39,6 +41,11 @@ public class Run {
         for(IKeyValPair kvp : kp){
 
             System.out.println(kvp.get_meaningfulName()+": " + kvp.getValue());
+        }
+
+        for (IFlag ff : fld){
+
+            System.out.println(ff.get_meaningfulName() + " :" + ff.getValue());
         }
 
 

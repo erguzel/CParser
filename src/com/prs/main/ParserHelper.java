@@ -229,7 +229,7 @@ public class ParserHelper {
     /*
     TODO
      */
-    private static void parseFlgs(String[] args) {
+    public static void parseFlags(String[] args) {
 
         boolean isFlag = false;
         String flagExpression = " ";
@@ -241,13 +241,25 @@ public class ParserHelper {
                 isFlag = CParser.Utility.getFlags()
                         .stream()
                         .map(a -> a.get_expression())
-                        .anyMatch(b -> b.contains(arg.trim()));
+                        .anyMatch(b -> b.equals(arg.trim()));
 
                 flagExpression = arg.trim();
 
                 if (isFlag) {
 
                     String finalflagExpression = flagExpression;
+
+                    CParser.Utility.getFlags().stream()
+                            .filter(a->a.get_expression().equals(finalflagExpression))
+                            .forEach(a -> {
+                                try {
+                                    a.setValue(true);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
+
 
 
                 }

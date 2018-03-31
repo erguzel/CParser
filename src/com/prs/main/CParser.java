@@ -64,7 +64,7 @@ public class CParser implements ICmdParser {
 
         ParserHelper.parseKvP(args);
 
-        //ParserHelper.parseFlags(args);
+        ParserHelper.parseFlags(args);
 
     }
     public static class Utility{

@@ -97,7 +97,7 @@ public abstract class DataTypeParser {
         }
     }
 
-    public Object ParseDataType(String value, Class<? extends Object> parseTo) throws Exception {
+    public Object ParseDataType(Object value, Class<? extends Object> parseTo) throws Exception {
 
         switch (parseTo.getSimpleName()) {
 
@@ -105,7 +105,7 @@ public abstract class DataTypeParser {
 
                 try {
 
-                    return Integer.parseInt(value);
+                    return Integer.parseInt((String )value);
 
                 } catch (NumberFormatException e) {
 
@@ -117,7 +117,7 @@ public abstract class DataTypeParser {
 
                 try {
 
-                    return Integer.parseInt(value);
+                    return Integer.parseInt((String )value);
 
                 } catch (NumberFormatException e) {
 
@@ -129,7 +129,7 @@ public abstract class DataTypeParser {
 
                 try {
 
-                    return Double.parseDouble(value);
+                    return Double.parseDouble((String )value);
 
                 } catch (NumberFormatException e) {
 
@@ -140,7 +140,7 @@ public abstract class DataTypeParser {
             case "double":
                 try {
 
-                    return Double.parseDouble(value);
+                    return Double.parseDouble((String )value);
 
                 } catch (NumberFormatException e) {
 
@@ -152,7 +152,7 @@ public abstract class DataTypeParser {
             case "Float":
                 try {
 
-                    return Float.parseFloat(value);
+                    return Float.parseFloat((String )value);
 
                 } catch (NumberFormatException e) {
 
@@ -164,7 +164,7 @@ public abstract class DataTypeParser {
 
                 try {
 
-                    return Float.parseFloat(value);
+                    return Float.parseFloat((String )value);
 
                 } catch (NumberFormatException e) {
 
