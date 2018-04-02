@@ -1,14 +1,16 @@
 package com.prs.main;
 
 import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.IOption;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ParserHelper {
+
+    public static final String RgxAlfanumeric = "[a-zA-Z0-9]+$";
 
     public static void checkUnsupported(String[] args) throws Exception {
 
@@ -25,7 +27,9 @@ public class ParserHelper {
 
             if (arg.trim().startsWith("-")) {
 
-                if (!_suportedList.contains(arg.trim())) {
+                String value = resolveRegex(arg,RgxAlfanumeric);
+
+                if (!_suportedList.contains(value)) {
 
                     boolean isKvP;
 
@@ -74,7 +78,8 @@ public class ParserHelper {
             arg = args[s];
 
             isProvidedOption = args[s].startsWith("-");
-            isExistingOption = CParser.Utility.getOptions().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(arg);
+            String val = resolveRegex(arg,RgxAlfanumeric);
+            isExistingOption = CParser.Utility.getOptions().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(val);
 
             if (isProvidedOption & isExistingOption) {
 
@@ -106,12 +111,14 @@ public class ParserHelper {
 
             if (arg.trim().startsWith("-")) {
 
+                String val = resolveRegex(arg,RgxAlfanumeric);
+
                 isOption = CParser.Utility.getOptions()
                         .stream()
                         .map(a -> a.get_expression())
-                        .anyMatch(b -> b.contains(arg.trim()));
+                        .anyMatch(b -> b.contains(val.trim()));
 
-                optionExpression = arg;
+                optionExpression = val;
 
                 continue;
             }
@@ -160,6 +167,7 @@ public class ParserHelper {
                                     x.addValueRange(values);
                                 } catch (Exception e) {
                                     e.printStackTrace();
+                                    System.exit(1);
                                 }
                             });
 
@@ -185,7 +193,7 @@ public class ParserHelper {
 
                 if (isKvP) {
 
-                    kvpExpression = arg.trim();
+                    kvpExpression = resolveRegex(arg,RgxAlfanumeric);
 
                     String finalKvPExpression = kvpExpression;
 
@@ -215,6 +223,7 @@ public class ParserHelper {
                                     x.setValue(values[1]);
                                 } catch (Exception e) {
                                     e.printStackTrace();
+                                    System.exit(1);
                                 }
                             });
 
@@ -243,7 +252,7 @@ public class ParserHelper {
                         .map(a -> a.get_expression())
                         .anyMatch(b -> b.equals(arg.trim()));
 
-                flagExpression = arg.trim();
+                flagExpression = resolveRegex(arg,RgxAlfanumeric);
 
                 if (isFlag) {
 
@@ -292,7 +301,9 @@ public class ParserHelper {
 
                 if(s.trim().startsWith("-")){
 
-                    allOptions.add(s);
+                    String val = resolveRegex(s,RgxAlfanumeric);
+
+                    allOptions.add(val);
 
                 }
 
@@ -313,4 +324,13 @@ public class ParserHelper {
 
     }
 
+    private static String resolveRegex(String sample, String regex) {
+
+        Pattern patern = Pattern.compile(regex);
+        Matcher mher = patern.matcher(sample);
+
+        boolean ismatched = mher.find();
+
+        return mher.group(0);
+    }
 }

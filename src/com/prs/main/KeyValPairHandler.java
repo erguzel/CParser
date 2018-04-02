@@ -29,7 +29,7 @@ public class KeyValPairHandler implements IKeyValuePaired {
             throw new Exception("Error:..." + _expression + " key-val pair already defined");
         }
 
-        CParser.Utility.addKvP(new KeyValPair("-".concat(_expression),_valueSeparator,_dataType,_consTypee,_meaningfulName));
+        CParser.Utility.addKvP(new KeyValPair(_expression,_valueSeparator,_dataType,_consTypee,_meaningfulName));
 
         return new CParser();
     }

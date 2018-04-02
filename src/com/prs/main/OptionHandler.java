@@ -40,7 +40,7 @@ class OptionHandler implements IOptioned {
         }
 
         CParser.Utility.addOption(new Option(_isMultipleValuesAccepted,
-                _valueSeparator,"-".concat(_expression),_dataType, _cType,_meaningfulName));
+                _valueSeparator,_expression,_dataType, _cType,_meaningfulName));
         return new CParser();
     }
 

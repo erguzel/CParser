@@ -16,7 +16,7 @@ class FlagHandler implements IFlagged{
     public ICmdParser submit(String giveMeaningfulName) {
         _meaningfulName = giveMeaningfulName;
 
-        CParser.Utility.addFlag(new Flag("-".concat(_expression),_meaningfulName));
+        CParser.Utility.addFlag(new Flag(_expression,_meaningfulName));
 
         return new CParser();
 
