@@ -75,10 +75,10 @@ public class ParserHelper {
 
         for (int s = 0; s < args.length; s++) {
 
-            arg = args[s];
+          ;
 
             isProvidedOption = args[s].startsWith("-");
-            String val = resolveRegex(arg, RgxAlfanumeric);
+            String val = args[s];
             isExistingOption = CParser.Utility.getOptions().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(val);
 
             if (isProvidedOption & isExistingOption) {
@@ -191,9 +191,7 @@ public class ParserHelper {
 
                 if (isKvP) {
 
-                    kvpExpression = resolveRegex(arg, RgxAlfanumeric);
-
-                    String finalKvPExpression = kvpExpression;
+                    String finalKvPExpression = arg.trim();
 
                     String valueSeparator = CParser.Utility.getKvPairs()
                             .stream()
@@ -250,11 +248,11 @@ public class ParserHelper {
                         .map(a -> a.get_expression())
                         .anyMatch(b -> b.equals(arg.trim()));
 
-                flagExpression = resolveRegex(arg, RgxAlfanumeric);
+
 
                 if (isFlag) {
 
-                    String finalflagExpression = flagExpression;
+                    String finalflagExpression = arg.trim();
 
                     CParser.Utility.getFlags().stream()
                             .filter(a -> a.get_expression().equals(finalflagExpression))
@@ -297,9 +295,7 @@ public class ParserHelper {
 
                 if (s.trim().startsWith("-")) {
 
-                    String val = resolveRegex(s, RgxAlfanumeric);
-
-                    allOptions.add(val);
+                    allOptions.add(s.trim());
 
                 }
 
@@ -318,16 +314,6 @@ public class ParserHelper {
         }
 
 
-    }
-
-    private static String resolveRegex(String sample, String regex) {
-
-        Pattern patern = Pattern.compile(regex);
-        Matcher mher = patern.matcher(sample);
-
-        boolean ismatched = mher.find();
-
-        return mher.group(0);
     }
 
     public static void parseNakedValues(String[] args) {

@@ -15,18 +15,10 @@ class Run {
     public static void main(String []args) throws Exception {
 
         CParser cm = new CParser();
-        cm.AddOption("--np",String.class,ConstraintTypes.Mandatory)
-                .submit("n--p param")
-                .AddOption("-np",float.class,ConstraintTypes.Optional)
-                .submit("n-p param")
-                .AddOption("-nt",double.class,ConstraintTypes.Optional)
-                .submit("NtStaff")
-                .AddFlag("-fl")
-                .submit("flag1")
-                .AddFlag("-abc")
-                .submit("abcFlag")
-                .AddKeyValuePair("std","=",String.class,ConstraintTypes.Optional)
-                .submit("KeyValuPair")
+        cm.AddOption("--top",int.class,ConstraintTypes.Optional)
+                .submit("TopDisplay")
+                .AddFlag("-c")
+                .submit("CSVMode")
                 .parse(args);
 
         List<IOption> ide = CParser.Utility.getOptions();
