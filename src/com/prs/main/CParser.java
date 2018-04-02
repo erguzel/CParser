@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 public class CParser implements ICmdParser {
 
-    private  List<OptionHandler> _optionHandlers = new ArrayList<OptionHandler>();
+    private List<OptionHandler> _optionHandlers = new ArrayList<OptionHandler>();
 
-    private  List<FlagHandler> _flagHandlers = new ArrayList<FlagHandler>();
+    private List<FlagHandler> _flagHandlers = new ArrayList<FlagHandler>();
 
     private OptionHandler _optionHandler;
 
@@ -23,16 +23,16 @@ public class CParser implements ICmdParser {
     @Override
     public IOptioned AddOption(String expressio, Class<? extends Object> type, ConstraintTypes constraint) throws Exception {
 
-        _optionHandler = new OptionHandler(expressio,type,constraint);
+        _optionHandler = new OptionHandler(expressio, type, constraint);
         return _optionHandler;
     }
 
     @Override
     public IFlagged AddFlag(String expression) throws Exception {
 
-        if (CParser.Utility.getFlags().stream().map(a->a.get_expression()).collect(Collectors.toList()).contains(expression)){
+        if (CParser.Utility.getFlags().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(expression)) {
 
-            throw  new  Exception(" Error:..." + expression + " option already defined");
+            throw new Exception(" Error:..." + expression + " option already defined");
         }
 
         _flagHandler = new FlagHandler(expression);
@@ -42,7 +42,7 @@ public class CParser implements ICmdParser {
     @Override
     public IKeyValuePaired AddKeyValuePair(String expression, String valueSeparator, Class<? extends Object> dataType, ConstraintTypes consTypee) {
 
-        _kvHandler = new KeyValPairHandler(expression,valueSeparator,dataType,consTypee);
+        _kvHandler = new KeyValPairHandler(expression, valueSeparator, dataType, consTypee);
 
         return _kvHandler;
     }
@@ -54,9 +54,9 @@ public class CParser implements ICmdParser {
 
         ParserHelper.checkUnsupported(args);
 
-        ParserHelper.checkIfFirstElementIsOptionOrFlag(args[0]);
+        // ParserHelper.checkIfFirstElementIsOptionOrFlag(args[0]);
 
-        ParserHelper.checkValueFreeOptions(args);
+        // ParserHelper.checkValueFreeOptions(args);
 
         ParserHelper.checkMandatories(args);
 
@@ -66,29 +66,39 @@ public class CParser implements ICmdParser {
 
         ParserHelper.parseFlags(args);
 
+        ParserHelper.parseNakedValues(args);
+
     }
-    public static class Utility{
 
-      private static List<IOption> submittedOptions = new ArrayList<>();
+    public static class Utility {
 
-      private static List<IFlag> submittedFlags = new ArrayList<>();
+        private static List<IOption> submittedOptions = new ArrayList<>();
 
-      private static List<IKeyValPair> sublittedKVPairs = new ArrayList<>();
+        private static List<IFlag> submittedFlags = new ArrayList<>();
 
-         static void addOption(IOption opt){
+        private static List<IKeyValPair> sublittedKVPairs = new ArrayList<>();
+
+        private static List<String> nakedValues = new ArrayList<>();
+
+        static void addOption(IOption opt) {
 
             submittedOptions.add(opt);
 
         }
 
-         static void addFlag(Flag flg){
+        static void addNakedValue(String arg) {
 
-             submittedFlags.add(flg);
+            nakedValues.add(arg.trim());
         }
 
-        static void addKvP(IKeyValPair kevalpair){
+        static void addFlag(Flag flg) {
 
-             sublittedKVPairs.add(kevalpair);
+            submittedFlags.add(flg);
+        }
+
+        static void addKvP(IKeyValPair kevalpair) {
+
+            sublittedKVPairs.add(kevalpair);
         }
 
         public static List<IFlag> getFlags() {
@@ -97,14 +107,19 @@ public class CParser implements ICmdParser {
 
         }
 
-        public static List<IOption> getOptions()  {
+        public static List<IOption> getOptions() {
 
             return submittedOptions;
         }
 
-        public static List<IKeyValPair> getKvPairs(){
+        public static List<IKeyValPair> getKvPairs() {
 
             return sublittedKVPairs;
+        }
+
+        public static List<String > getNakedValues(){
+
+            return nakedValues;
         }
 
 

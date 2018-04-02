@@ -3,10 +3,12 @@ package com.prs.main;
 import com.prs.abstraction.enumic.ConstraintTypes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ParserHelper {
 
@@ -27,14 +29,12 @@ public class ParserHelper {
 
             if (arg.trim().startsWith("-")) {
 
-                String value = resolveRegex(arg,RgxAlfanumeric);
-
-                if (!_suportedList.contains(value)) {
+                if (!_suportedList.contains(arg.trim())) {
 
                     boolean isKvP;
 
                     isKvP = CParser.Utility.getKvPairs().stream()
-                            .anyMatch(a -> arg.startsWith(a.get_expression()));
+                            .anyMatch(a -> arg.trim().equals(a.get_expression()));
 
                     if (!isKvP) {
                         throw new Exception("Error:..." + arg + " argument does not supported yet");
@@ -78,7 +78,7 @@ public class ParserHelper {
             arg = args[s];
 
             isProvidedOption = args[s].startsWith("-");
-            String val = resolveRegex(arg,RgxAlfanumeric);
+            String val = resolveRegex(arg, RgxAlfanumeric);
             isExistingOption = CParser.Utility.getOptions().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(val);
 
             if (isProvidedOption & isExistingOption) {
@@ -111,14 +111,12 @@ public class ParserHelper {
 
             if (arg.trim().startsWith("-")) {
 
-                String val = resolveRegex(arg,RgxAlfanumeric);
-
                 isOption = CParser.Utility.getOptions()
                         .stream()
                         .map(a -> a.get_expression())
-                        .anyMatch(b -> b.contains(val.trim()));
+                        .anyMatch(b -> b.equals(arg.trim()));
 
-                optionExpression = val;
+                optionExpression = arg.trim();
 
                 continue;
             }
@@ -193,13 +191,13 @@ public class ParserHelper {
 
                 if (isKvP) {
 
-                    kvpExpression = resolveRegex(arg,RgxAlfanumeric);
+                    kvpExpression = resolveRegex(arg, RgxAlfanumeric);
 
                     String finalKvPExpression = kvpExpression;
 
                     String valueSeparator = CParser.Utility.getKvPairs()
                             .stream()
-                            .filter(a ->arg.startsWith(a.get_expression()))
+                            .filter(a -> arg.startsWith(a.get_expression()))
                             .findAny()
                             .get()
                             .get_valueSeparator();
@@ -252,14 +250,14 @@ public class ParserHelper {
                         .map(a -> a.get_expression())
                         .anyMatch(b -> b.equals(arg.trim()));
 
-                flagExpression = resolveRegex(arg,RgxAlfanumeric);
+                flagExpression = resolveRegex(arg, RgxAlfanumeric);
 
                 if (isFlag) {
 
                     String finalflagExpression = flagExpression;
 
                     CParser.Utility.getFlags().stream()
-                            .filter(a->a.get_expression().equals(finalflagExpression))
+                            .filter(a -> a.get_expression().equals(finalflagExpression))
                             .forEach(a -> {
                                 try {
                                     a.setValue(true);
@@ -267,8 +265,6 @@ public class ParserHelper {
                                     e.printStackTrace();
                                 }
                             });
-
-
 
 
                 }
@@ -282,26 +278,26 @@ public class ParserHelper {
     public static void checkMandatories(String[] args) throws Exception {
 
         boolean anyMandatoryOption = CParser.Utility.getOptions().stream()
-                .anyMatch(a->a.getcType() == ConstraintTypes.Mandatory);
+                .anyMatch(a -> a.getcType() == ConstraintTypes.Mandatory);
 
-        if(anyMandatoryOption){
+        if (anyMandatoryOption) {
 
-            List<String > mandatories = CParser.Utility.getOptions().stream()
-                    .filter(a->a.getcType() == ConstraintTypes.Mandatory)
-                    .map(b->b.get_expression())
+            List<String> mandatories = CParser.Utility.getOptions().stream()
+                    .filter(a -> a.getcType() == ConstraintTypes.Mandatory)
+                    .map(b -> b.get_expression())
                     .collect(Collectors.toList());
 
 
             mandatories.addAll(CParser.Utility.getKvPairs().stream()
-            .filter(a->a.getcType() == ConstraintTypes.Mandatory)
-            .map(b->b.get_expression()).collect(Collectors.toList()));
+                    .filter(a -> a.getcType() == ConstraintTypes.Mandatory)
+                    .map(b -> b.get_expression()).collect(Collectors.toList()));
 
             List<String> allOptions = new ArrayList<>();
-            for(String s : args){
+            for (String s : args) {
 
-                if(s.trim().startsWith("-")){
+                if (s.trim().startsWith("-")) {
 
-                    String val = resolveRegex(s,RgxAlfanumeric);
+                    String val = resolveRegex(s, RgxAlfanumeric);
 
                     allOptions.add(val);
 
@@ -309,13 +305,13 @@ public class ParserHelper {
 
             }
 
-            if(!allOptions.containsAll(mandatories)){
+            if (!allOptions.containsAll(mandatories)) {
 
                 StringBuilder sb = new StringBuilder();
 
-                mandatories.forEach(a->sb.append(a).append(" "));
+                mandatories.forEach(a -> sb.append(a).append(" "));
 
-             throw new Exception("Error:... Mandatory "+ sb.toString()  + " options omited");
+                throw new Exception("Error:... Mandatory " + sb.toString() + " options omited");
 
             }
 
@@ -332,5 +328,41 @@ public class ParserHelper {
         boolean ismatched = mher.find();
 
         return mher.group(0);
+    }
+
+    public static void parseNakedValues(String[] args) {
+
+        boolean optOrKvpVal =false;
+        boolean isFlag;
+        boolean isNakedVal = false;
+
+        List _optionOrKvp = Stream.of(CParser.Utility.getOptions().stream()
+                        .map(x->x.get_expression()).collect(Collectors.toList()),
+                CParser.Utility.getKvPairs().stream()
+                        .map(a->a.get_expression()).collect(Collectors.toList()))
+                .flatMap(Collection::stream).collect(Collectors.toList());
+
+
+        for (String arg : args) {
+
+            isFlag = CParser.Utility.getFlags().stream().anyMatch(a->a.get_expression().equals(arg.trim()));
+
+            if(_optionOrKvp.contains(arg.trim())){
+
+                optOrKvpVal = true;
+                continue;
+            }
+
+            if(isFlag){
+                optOrKvpVal =false;
+                continue;
+            }
+
+            if(!optOrKvpVal){
+
+                CParser.Utility.addNakedValue(arg.trim());
+            }
+
+        }
     }
 }
