@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+sourceSets {
+	
+	main.java.srcDir "src"
+	test.java.srcDir "test"
+
+}
+	
+
+if (project.hasProperty('projVersion')) {
+  project.version = project.projVersion
+} else {
+  project.version = '0.1'
+}
+
+libsDirName = "${project.version}"
+
+configurations {
+
+        jar.archiveName = "CParser-${project.version}.jar"
+}
+
+
+
