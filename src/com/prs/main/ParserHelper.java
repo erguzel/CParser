@@ -1,5 +1,6 @@
 package com.prs.main;
 
+import com.prs.abstraction.enumic.ArgumentTypes;
 import com.prs.abstraction.enumic.ConstraintTypes;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 
 public class ParserHelper {
 
-    public static final String RgxAlfanumeric = "[a-zA-Z0-9]+$";
+    private static List<String> _arguments = new ArrayList<>();
 
     public static void checkUnsupported(String[] args) throws Exception {
 
@@ -25,6 +26,7 @@ public class ParserHelper {
                 .map(c -> c.get_expression())
                 .collect(Collectors.toList()));
 
+
         for (String arg : args) {
 
             if (arg.trim().startsWith("-")) {
@@ -34,7 +36,8 @@ public class ParserHelper {
                     boolean isKvP;
 
                     isKvP = CParser.Utility.getKvPairs().stream()
-                            .anyMatch(a -> arg.trim().equals(a.get_expression()));
+                            .map(a->a.get_expression()).collect(Collectors.toList()).stream()
+                    .anyMatch(b->arg.contains(b));
 
                     if (!isKvP) {
                         throw new Exception("Error:..." + arg + " argument does not supported yet");
@@ -57,48 +60,9 @@ public class ParserHelper {
         }
     }
 
-    public static void checkEmptyParams(String[] args) throws Exception {
-
-        if (args.length == 0) {
-
-            throw new Exception("Error:.. There are no arguments to parse");
-
-        }
-
-    }
-
     public static void checkValueFreeOptions(String[] args) throws Exception {
-        String arg;
-        boolean isProvidedOption;
-        boolean flag = false;
-        boolean isExistingOption;
 
-        for (int s = 0; s < args.length; s++) {
 
-          ;
-
-            isProvidedOption = args[s].startsWith("-");
-            String val = args[s];
-            isExistingOption = CParser.Utility.getOptions().stream().map(a -> a.get_expression()).collect(Collectors.toList()).contains(val);
-
-            if (isProvidedOption & isExistingOption) {
-
-                if (flag) {
-
-                    throw new Exception("option without value is not accepted");
-
-                }
-                flag = true;
-                continue;
-            } else {
-                flag = false;
-            }
-
-        }
-        if (flag) {
-
-            throw new Exception("option without value is not accepted");
-        }
 
     }
 
@@ -290,24 +254,18 @@ public class ParserHelper {
                     .filter(a -> a.getcType() == ConstraintTypes.Mandatory)
                     .map(b -> b.get_expression()).collect(Collectors.toList()));
 
-            List<String> allOptions = new ArrayList<>();
-            for (String s : args) {
+            boolean isMandatoriesSatisfied;
 
-                if (s.trim().startsWith("-")) {
+            isMandatoriesSatisfied =  mandatories.stream().allMatch(a->_arguments.stream().anyMatch(b->b.contains(a)));
 
-                    allOptions.add(s.trim());
-
-                }
-
-            }
-
-            if (!allOptions.containsAll(mandatories)) {
+            if (!isMandatoriesSatisfied) {
 
                 StringBuilder sb = new StringBuilder();
 
-                mandatories.forEach(a -> sb.append(a).append(" "));
+             mandatories.stream().filter(a->_arguments.stream().noneMatch(b->b.contains(a))).collect(Collectors.toList())
+                     .forEach(x->sb.append(x).append(" "));
 
-                throw new Exception("Error:... Mandatory " + sb.toString() + " options omited");
+                throw new Exception("Error:... Mandatory " + sb.toString() + " option(s) omited");
 
             }
 
@@ -318,36 +276,77 @@ public class ParserHelper {
 
     public static void parseNakedValues(String[] args) {
 
-        boolean optOrKvpVal =false;
+        boolean IsoptOrKvpVal =false;
         boolean isFlag;
         boolean isNakedVal = false;
 
-        List _optionOrKvp = Stream.of(CParser.Utility.getOptions().stream()
+        List<String > _optionOrKvp = Stream.of(CParser.Utility.getOptions().stream()
                         .map(x->x.get_expression()).collect(Collectors.toList()),
                 CParser.Utility.getKvPairs().stream()
                         .map(a->a.get_expression()).collect(Collectors.toList()))
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
-
         for (String arg : args) {
 
-            isFlag = CParser.Utility.getFlags().stream().anyMatch(a->a.get_expression().equals(arg.trim()));
 
-            if(_optionOrKvp.contains(arg.trim())){
+            if(_optionOrKvp.contains(arg.trim()) || _optionOrKvp.stream().anyMatch(a->arg.contains(a))){
 
-                optOrKvpVal = true;
+                IsoptOrKvpVal = true;
                 continue;
             }
 
-            if(isFlag){
-                optOrKvpVal =false;
+            if(CParser.Utility.getFlags().stream().anyMatch(a->a.get_expression().equals(arg.trim()))){
+                IsoptOrKvpVal =false;
+                isFlag =true;
                 continue;
             }
 
-            if(!optOrKvpVal){
+
+            if(!IsoptOrKvpVal){
 
                 CParser.Utility.addNakedValue(arg.trim());
             }
+
+        }
+    }
+
+    public static void prepareArgs(String[] args) {
+
+        for(String arg : args){
+
+            _arguments.add(arg);
+
+        }
+
+    }
+
+    private static boolean isWhat(ArgumentTypes argType, String argument) throws Exception {
+
+        boolean result = false;
+
+        switch (argType){
+
+            case Flag:
+
+                result = CParser.Utility.getFlags().stream()
+                        .anyMatch(a->a.get_expression().equals(argument.trim()));
+
+            case Option:
+
+                result = CParser.Utility.getOptions().stream()
+                        .anyMatch(a->a.get_expression().equals(argument.trim()));
+
+            case KeyValuePair:
+
+                result = CParser.Utility.getKvPairs().stream()
+                        .anyMatch(a->a.get_expression().startsWith(argument.trim()));
+            case NakedValue:
+
+                result = argument.startsWith(argument.trim())? false : true;
+                default:
+
+                    throw new Exception("Given argument type is not defined in the enum");
+
 
         }
     }

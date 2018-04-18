@@ -19,6 +19,10 @@ class Run {
                 .submit("TopDisplay")
                 .AddFlag("-c")
                 .submit("CSVMode")
+                .AddKeyValuePair("-std","=",String.class,ConstraintTypes.Optional)
+                .submit("stdValue")
+                .AddOption("-np",int.class,ConstraintTypes.Optional)
+                .submit("Number of Players")
                 .parse(args);
 
         List<IOption> ide = CParser.Utility.getOptions();

@@ -50,13 +50,11 @@ public class CParser implements ICmdParser {
     @Override
     public void parse(String[] args) throws Exception {
 
-        ParserHelper.checkEmptyParams(args);
+        ParserHelper.prepareArgs(args);
 
         ParserHelper.checkUnsupported(args);
 
-        // ParserHelper.checkIfFirstElementIsOptionOrFlag(args[0]);
-
-        // ParserHelper.checkValueFreeOptions(args);
+        ParserHelper.checkValueFreeOptions(args);
 
         ParserHelper.checkMandatories(args);
 
