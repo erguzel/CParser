@@ -6,3 +6,5 @@ manifest
 OUT/
 out/
 .DS_Store
+.gradle/
+build/
