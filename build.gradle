@@ -8,17 +8,17 @@ sourceSets {
 }
 	
 
-if (project.hasProperty('projVersion')) {
-  project.version = project.projVersion
-} else {
-  project.version = '0.1'
-}
+//if (project.hasProperty('projVersion')) {
+//  project.version = project.projVersion
+//} else {
+ // project.version = '0.1'
+//}
 
-libsDirName = "${project.version}"
+//libsDirName = "${project.version}"
 
 configurations {
 
-        jar.archiveName = "CParser-${project.version}.jar"
+        jar.archiveName = "cpar.jar"
 }
 
 
