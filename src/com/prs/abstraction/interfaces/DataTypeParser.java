@@ -31,7 +31,7 @@ public abstract class DataTypeParser {
 
                 } catch (NumberFormatException e) {
 
-                    throw new Exception("Error:... " + value + " must be an "+ parseTo.getSimpleName() + " value");
+                    throw new Exception("Error:... " + value + " must be an "+ parseTo.getSimpleName() + "value");
 
                 }
 

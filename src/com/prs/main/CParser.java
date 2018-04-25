@@ -50,21 +50,32 @@ public class CParser implements ICmdParser {
     @Override
     public void parse(String[] args) throws Exception {
 
-        ParserHelper.prepareArgs(args);
+        try {
+            ParserHelper.prepareArgs(args);
 
-        ParserHelper.checkUnsupported(args);
+            ParserHelper.checkUnsupported(args);
 
-        ParserHelper.checkValueFreeOptions(args);
+            ParserHelper.checkValueFreeOptions(args);
 
-        ParserHelper.checkMandatories(args);
+            ParserHelper.checkMandatories(args);
 
-        ParserHelper.parseOptions(args);
+            ParserHelper.parseOptions(args);
 
-        ParserHelper.parseKvP(args);
+            ParserHelper.parseKvP(args);
 
-        ParserHelper.parseFlags(args);
+            ParserHelper.parseFlags(args);
 
-        ParserHelper.parseNakedValues(args);
+            ParserHelper.parseNakedValues(args);
+        }
+
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            System.exit(1);
+
+        }
+
+        System.out.println("Argument parsing has finished");
+
 
     }
 
