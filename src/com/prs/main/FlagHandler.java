@@ -1,7 +1,7 @@
 package com.prs.main;
 
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.interfaces.IFlagged;
+import abstraction.cpar.interfaces.ICmdParser;
+import abstraction.cpar.interfaces.IFlagged;
 
 class FlagHandler implements IFlagged{
 

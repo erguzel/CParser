@@ -2,10 +2,10 @@ package com.prs.main;
 
 
 
-import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.interfaces.IOptioned;
-import com.prs.abstraction.interfaces.ISubmit;
+import abstraction.cpar.enumic.ConstraintTypes;
+import abstraction.cpar.interfaces.ICmdParser;
+import abstraction.cpar.interfaces.IOptioned;
+import abstraction.cpar.interfaces.ISubmit;
 
 import java.util.stream.Collectors;
 

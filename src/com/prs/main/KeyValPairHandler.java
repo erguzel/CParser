@@ -1,8 +1,8 @@
 package com.prs.main;
 
-import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.ICmdParser;
-import com.prs.abstraction.interfaces.IKeyValuePaired;
+import abstraction.cpar.interfaces.IKeyValuePaired;
+import abstraction.cpar.enumic.ConstraintTypes;
+import abstraction.cpar.interfaces.ICmdParser;
 
 import java.util.stream.Collectors;
 

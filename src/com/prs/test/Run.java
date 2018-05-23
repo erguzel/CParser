@@ -1,9 +1,9 @@
 package com.prs.test;
 
-import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.IFlag;
-import com.prs.abstraction.interfaces.IKeyValPair;
-import com.prs.abstraction.interfaces.IOption;
+import abstraction.cpar.enumic.ConstraintTypes;
+import abstraction.cpar.interfaces.IFlag;
+import abstraction.cpar.interfaces.IKeyValPair;
+import abstraction.cpar.interfaces.IOption;
 import com.prs.main.CParser;
 
 import java.lang.reflect.Method;

@@ -1,8 +1,8 @@
 package com.prs.main;
 
-import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.DataTypeParser;
-import com.prs.abstraction.interfaces.IKeyValPair;
+import abstraction.cpar.enumic.ConstraintTypes;
+import abstraction.cpar.interfaces.DataTypeParser;
+import abstraction.cpar.interfaces.IKeyValPair;
 
 public class KeyValPair extends DataTypeParser implements IKeyValPair {
 

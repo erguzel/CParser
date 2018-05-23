@@ -1,8 +1,8 @@
 package com.prs.main;
 
-import com.prs.abstraction.enumic.ConstraintTypes;
-import com.prs.abstraction.interfaces.DataTypeParser;
-import com.prs.abstraction.interfaces.IOption;
+import abstraction.cpar.enumic.ConstraintTypes;
+import abstraction.cpar.interfaces.DataTypeParser;
+import abstraction.cpar.interfaces.IOption;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.prs.main;
 
-import com.prs.abstraction.interfaces.IFlag;
-import com.prs.abstraction.interfaces.IValued;
+import abstraction.cpar.interfaces.IFlag;
+import abstraction.cpar.interfaces.IValued;
 
 class Flag implements IFlag {
 

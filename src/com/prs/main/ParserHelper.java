@@ -1,7 +1,7 @@
 package com.prs.main;
 
-import com.prs.abstraction.enumic.ArgumentTypes;
-import com.prs.abstraction.enumic.ConstraintTypes;
+import abstraction.cpar.enumic.ArgumentTypes;
+import abstraction.cpar.enumic.ConstraintTypes;
 
 import java.util.ArrayList;
 import java.util.Collection;
