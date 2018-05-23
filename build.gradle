@@ -1,9 +1,9 @@
 apply plugin: 'java'
 
-repositories {
-	maven {
-		url 'https://jitpack.io'
-	}
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 
@@ -16,7 +16,7 @@ sourceSets {
 
 
 dependencies {
-    implementation 'com.github.erguzel:abstraction:master'
+    compile 'com.github.erguzel:abstraction:26efdfe'
 }
 
 //if (project.hasProperty('projVersion')) {
@@ -24,7 +24,6 @@ dependencies {
 //} else {
  // project.version = '0.1'
 //}
-
 //libsDirName = "${project.version}"
 
 configurations {
@@ -32,9 +31,6 @@ configurations {
         jar.archiveName = "cpar.jar"
 }
 
-jar {
-	from configurations.compile.collect { zipTree it }
-	manifest.attributes "Main-Class": "com.prs.test.Run"
-}
+
 
 
