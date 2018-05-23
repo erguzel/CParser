@@ -16,7 +16,7 @@ sourceSets {
 
 
 dependencies {
-	compile 'com.github.erguzel:abstraction:master'
+    implementation 'com.github.erguzel:abstraction:master'
 }
 
 //if (project.hasProperty('projVersion')) {
