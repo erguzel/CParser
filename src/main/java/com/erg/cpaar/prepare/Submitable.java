@@ -1,8 +1,8 @@
-package com.erg.cpaar.starter;
+package com.erg.cpaar.prepare;
 
-import com.erg.abst.cpaar.IOption;
-import com.erg.abst.cpaar.ISubmitable;
-import com.erg.abst.cpaar.ISubmitted;
+import com.erg.abst.cpaar.data.raw.IOption;
+import com.erg.abst.cpaar.prepare.ISubmitable;
+import com.erg.abst.cpaar.prepare.ISubmitted;
 import com.erg.cpaar.data.Arguments;
 
 public class Submitable implements ISubmitable {

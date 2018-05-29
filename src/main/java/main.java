@@ -1,5 +1,5 @@
-import com.erg.abst.cpaar.IParseStarter;
-import com.erg.cpaar.starter.ParseStarter;
+import com.erg.abst.cpaar.prepare.IParseStarter;
+import com.erg.cpaar.prepare.ParseStarter;
 
 public class main {
 
@@ -12,7 +12,7 @@ public class main {
                 .submit("option2")
                 .addOption("-bs",String.class,false)
                 .isMultipleValued(false)
-                .submit("option2")
+                .submit("option3")
                 .parse(args);
     }
 }

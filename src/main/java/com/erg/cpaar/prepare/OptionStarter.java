@@ -1,8 +1,8 @@
-package com.erg.cpaar.starter;
+package com.erg.cpaar.prepare;
 
-import com.erg.abst.cpaar.IOption;
-import com.erg.abst.cpaar.IOptionStarter;
-import com.erg.abst.cpaar.ISubmitable;
+import com.erg.abst.cpaar.data.raw.IOption;
+import com.erg.abst.cpaar.prepare.IOptionStarter;
+import com.erg.abst.cpaar.prepare.ISubmitable;
 
 public class OptionStarter implements IOptionStarter {
 

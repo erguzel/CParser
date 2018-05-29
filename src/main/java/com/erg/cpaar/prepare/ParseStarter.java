@@ -1,7 +1,7 @@
-package com.erg.cpaar.starter;
+package com.erg.cpaar.prepare;
 
-import com.erg.abst.cpaar.IParseStarter;
-import com.erg.cpaar.data.Option;
+import com.erg.abst.cpaar.prepare.IParseStarter;
+import com.erg.cpaar.data.raw.Option;
 
 public class ParseStarter implements IParseStarter {
 
