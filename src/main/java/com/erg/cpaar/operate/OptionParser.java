@@ -1,51 +1,61 @@
 package com.erg.cpaar.operate;
 
+import com.erg.abst.cpaar.prepare.IOption;
+import com.erg.abst.global.IExecutable;
+import com.erg.cpaar.data.Inputs;
+import com.erg.cpaar.data.Outputs;
+import com.erg.util.datatype.TypeParser;
 
-import com.erg.abst.cpaar.data.raw.IOption;
-import com.erg.cpaar.data.Arguments;
-import com.erg.cpaar.data.processed.ParsedOption;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class OptionParser {
-    private boolean isOption = false;
-    public OptionParser(String name, IOption element) throws Exception {
+public class OptionParser implements IExecutable {
 
-        if(!Arguments._args.isEmpty()){
+    private IOption _option;
 
-            //check mandatory
-            if(element.isMandatory()){
-                if(!Arguments._args.contains(element.getExpression())){
-                    throw new Exception("Mandatory " + element.getExpression() +" " + "Option has to be provided");
-                }
+    public OptionParser(IOption _option) throws Exception {
+        this._option = _option;
+        execute();
+    }
+
+    @Override
+    public void execute() throws Exception {
+
+        //check mandatory options
+        if (_option.getIsMandatory()) {
+
+            if (!Inputs._args.contains(_option.getRegex().trim())) {
+
+                throw new Exception(_option.getRegex() + " is a mandatory option");
             }
 
-            //
-            //
-            for (String s: Arguments._args){
-
-                if(s.trim().equals(element.getExpression())){
-                    isOption = true;
-                    continue;
-                }
-
-                if(!s.trim().equals(element.getExpression()) && s.startsWith("-")){
-
-                    isOption = false;
-                    continue;
-                }
-
-                if(isOption){
-
-                    //typeConverterelement.getDataType()
-
-                }
-            }
         }
 
+        List<Object> options = null;
 
 
 
+        for (String s : Inputs._args) {
 
+            if (s.trim().equals(_option.getRegex().trim())) {
+
+                int currentIndex = Inputs._args.indexOf(s);
+                options = new ArrayList<>();
+                for (int i = currentIndex + 1; i < Inputs._args.size(); i++) {
+
+                    if (Inputs._args.get(i).startsWith("-")) {
+                        break;
+                    }
+
+                    Object val = TypeParser.ParseDataType(_option.getDataType(), Inputs._args.get(i));
+                    options.add(val);
+
+                }
+
+                Outputs.options.put(_option.getName(), options);
+            }
+
+        }
     }
 }

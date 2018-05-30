@@ -1,19 +1,31 @@
-import com.erg.abst.cpaar.prepare.IParseStarter;
+import com.erg.abst.cpaar.prepare.IParserStarter;
+import com.erg.cpaar.data.Option;
+import com.erg.cpaar.data.Outputs;
 import com.erg.cpaar.prepare.ParseStarter;
+
+import java.util.Hashtable;
+
 
 public class main {
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
 
-        IParseStarter ps = new ParseStarter();
-        ps.addOption("-as",Integer.class,true)
-                .isMultipleValued(true)
-                .submit("option2")
-                .addOption("-bs",String.class,false)
-                .isMultipleValued(false)
-                .submit("option3")
+        IParserStarter ps = new ParseStarter();
+        ps.addOption("-s",Integer.class,true)
+                .submit("SensorId")
+                .addOption("-f",String.class,true)
+                .submit("FilePaths")
+                .addFlag("-imp")
+                .submit("IsMapReduce")
+                .addOption("-sid",String.class,false)
+                .submit("ServerIds")
                 .parse(args);
+
+        Hashtable<String ,?> asd = Outputs.flags;
+        Hashtable<String ,?> bsd = Outputs.options;
+
+
     }
 }
 
