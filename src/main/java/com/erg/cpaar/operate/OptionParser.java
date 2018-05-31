@@ -4,11 +4,10 @@ import com.erg.abst.cpaar.prepare.IOption;
 import com.erg.abst.global.IExecutable;
 import com.erg.cpaar.data.Inputs;
 import com.erg.cpaar.data.Outputs;
-import com.erg.util.datatype.TypeParser;
+import com.erg.util.parse.TypeParser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OptionParser implements IExecutable {
 

@@ -8,7 +8,7 @@ import com.erg.cpaar.data.Option;
 import com.erg.cpaar.operate.FlagParser;
 import com.erg.cpaar.operate.NumberParser;
 import com.erg.cpaar.operate.OptionParser;
-import com.erg.util.datatype.TypeParser;
+import com.erg.util.parse.TypeParser;
 
 import java.util.List;
 import java.util.stream.Collectors;
