@@ -8,11 +8,13 @@ public class Added implements IAdded {
     private IArgument _argument;
     private IFlag _flag;
     private IOption _option;
+    private INumberlist _numberList;
     private String _keyName;
 
 
     private boolean IsOption;
     private boolean Isflag;
+    private boolean isNumberList;
 
     @Override
     public ISubmitted submit(String keyName) throws Exception {
@@ -24,6 +26,11 @@ public class Added implements IAdded {
         else if(Isflag){
             _flag.setName(keyName);
             return new Submitted(_flag);
+        }
+
+        if(isNumberList){
+
+            return new Submitted(_numberList);
         }
 
         return new Submitted();// thread never must come here
@@ -45,5 +52,11 @@ public class Added implements IAdded {
 
         _option = option;
         IsOption = true;
+    }
+
+    public Added(INumberlist numberList){
+        _numberList = numberList;
+        isNumberList = true;
+
     }
 }

@@ -1,12 +1,14 @@
 package com.erg.cpaar.prepare;
 
+import com.erg.abst.cpaar.BareArgumentTypes;
 import com.erg.abst.cpaar.prepare.*;
-import com.erg.cpaar.data.Argument;
 import com.erg.cpaar.data.Flag;
 import com.erg.cpaar.data.Inputs;
 import com.erg.cpaar.data.Option;
 import com.erg.cpaar.operate.FlagParser;
+import com.erg.cpaar.operate.NumberParser;
 import com.erg.cpaar.operate.OptionParser;
+import com.erg.util.datatype.TypeParser;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,7 @@ public class Submitted implements ISubmitted {
     private IOption _option;
     private IFlag _flag;
     private IArgument _arg;
+    private INumberlist _nums;
 
 
 
@@ -28,6 +31,10 @@ public class Submitted implements ISubmitted {
     public Submitted(IOption option){
         _option = option;
         Inputs.Options.add(_option);
+    }
+    public Submitted(INumberlist numList){
+        _nums = numList;
+        Inputs.Numbers.add(numList);
     }
 
     public Submitted() throws Exception {
@@ -45,13 +52,17 @@ public class Submitted implements ISubmitted {
 
         for(String s : args){
 
-            if(s.trim().startsWith("-")){
+            if(!TypeParser.isInteger(s)){
 
-                if(!allArguments.contains(s)){
+                if(s.trim().startsWith("-")){
 
-                    throw new Exception(" Undefined arguments detected. Quitting..");
+                    if(!allArguments.contains(s)){
 
+                        throw new Exception(" Undefined arguments detected. Quitting..");
+
+                    }
                 }
+
             }
 
             Inputs._args.add(s);
@@ -75,13 +86,22 @@ public class Submitted implements ISubmitted {
             }
         });
 
+        Inputs.Numbers.forEach(b -> {
+            try {
+                new NumberParser(b);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
 
 
     }
 
+
     @Override
-    public IAdded add(String regex, Class<?> dataType, boolean isMandatory) {
-        return new Added(new Argument(regex,dataType,isMandatory));
+    public IAdded add(Class<?> dataType, BareArgumentTypes argType) {
+        return null;
     }
 
     @Override

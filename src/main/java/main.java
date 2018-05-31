@@ -4,6 +4,7 @@ import com.erg.cpaar.data.Outputs;
 import com.erg.cpaar.prepare.ParseStarter;
 
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 
 public class main {
@@ -22,8 +23,8 @@ public class main {
                 .submit("ServerIds")
                 .parse(args);
 
-        Hashtable<String ,?> asd = Outputs.flags;
-        Hashtable<String ,?> bsd = Outputs.options;
+        LinkedHashMap<String ,?> asd = Outputs.flags;
+        LinkedHashMap<String ,?> bsd = Outputs.options;
 
 
     }
