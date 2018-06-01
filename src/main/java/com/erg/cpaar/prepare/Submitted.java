@@ -4,6 +4,7 @@ import com.erg.abst.cpaar.BareArgumentTypes;
 import com.erg.abst.cpaar.prepare.*;
 import com.erg.cpaar.data.Flag;
 import com.erg.cpaar.data.Inputs;
+import com.erg.cpaar.data.Numberlist;
 import com.erg.cpaar.data.Option;
 import com.erg.cpaar.operate.FlagParser;
 import com.erg.cpaar.operate.NumberParser;
@@ -52,19 +53,6 @@ public class Submitted implements ISubmitted {
 
         for(String s : args){
 
-            if(!TypeParser.isInteger(s)){
-
-                if(s.trim().startsWith("-")){
-
-                    if(!allArguments.contains(s)){
-
-                        throw new Exception(" Undefined arguments detected. Quitting..");
-
-                    }
-                }
-
-            }
-
             Inputs._args.add(s);
         }
         //
@@ -100,8 +88,9 @@ public class Submitted implements ISubmitted {
 
 
     @Override
-    public IAdded add(Class<?> dataType, BareArgumentTypes argType) {
-        return null;
+    public IAdded add(Class<?> dataType) {
+
+        return new Added(new Numberlist(dataType));
     }
 
     @Override

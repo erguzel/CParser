@@ -14,7 +14,7 @@ public class ParseStarter implements IParserStarter{
     private IArgument _arg;
 
     @Override
-    public IAdded add(Class<?> dataType, BareArgumentTypes argType) {
+    public IAdded add(Class<?> dataType) {
         return new Added(new Numberlist(int.class));
     }
 

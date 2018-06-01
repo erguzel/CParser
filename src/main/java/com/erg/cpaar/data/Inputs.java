@@ -11,8 +11,7 @@ public class Inputs {
 
     public static LinkedHashSet<IOption> Options = new LinkedHashSet<>();
     public static LinkedHashSet<IFlag> Flags = new LinkedHashSet<>();
-    public static LinkedHashSet<INumberlist> Numbers = new LinkedHashSet<>();
-
+    public static List<INumberlist> Numbers = new ArrayList<>();
     public static List<String> _args = new ArrayList<>();
 
 }

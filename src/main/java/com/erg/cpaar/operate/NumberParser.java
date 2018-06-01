@@ -18,14 +18,8 @@ public class NumberParser implements IExecutable {
     @Override
     public void execute() throws Exception {
 
-         Inputs._args.stream()
-         .forEach(a -> {
-             try {
-                 Outputs.numbers.add(TypeParser.ParseDataType(a.getClass(), a));
-             } catch (Exception e) {
-                 e.printStackTrace();
-             }
-         });
+         Inputs._args.stream().forEach(a->Outputs.numbers.add(Integer.parseInt(a)));
+
 
     }
 }
