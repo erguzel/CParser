@@ -28,6 +28,9 @@ public class FlagParser implements IExecutable {
            Outputs.flags.put(_flag.getName(),true);
 
        }
+       else{
+           Outputs.flags.put(_flag.getName(),false);
+       }
 
     }
 }
