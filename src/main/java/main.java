@@ -1,9 +1,6 @@
 import com.erg.abst.cpaar.prepare.IParserStarter;
-import com.erg.cpaar.data.Option;
 import com.erg.cpaar.data.Outputs;
 import com.erg.cpaar.prepare.ParseStarter;
-
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 
