@@ -1,13 +1,18 @@
 package com.erg.cpaar.prepare;
 
 import com.erg.abst.cpaar.BareArgumentTypes;
+import com.erg.abst.cpaar.data.raw.IArgument;
+import com.erg.abst.cpaar.data.raw.IFlag;
+import com.erg.abst.cpaar.data.raw.INumberlist;
+import com.erg.abst.cpaar.data.raw.IOption;
 import com.erg.abst.cpaar.prepare.*;
 import com.erg.cpaar.data.Flag;
 import com.erg.cpaar.data.Inputs;
-import com.erg.cpaar.data.Numberlist;
+import com.erg.cpaar.data.NumberList;
 import com.erg.cpaar.data.Option;
+import com.erg.cpaar.operate.FileListParser;
 import com.erg.cpaar.operate.FlagParser;
-import com.erg.cpaar.operate.NumberParser;
+import com.erg.cpaar.operate.NumberListParser;
 import com.erg.cpaar.operate.OptionParser;
 
 import java.util.List;
@@ -72,16 +77,29 @@ public class Submitted implements ISubmitted {
                 e.printStackTrace();
             }
         });
-
+        //
+        // Parse numbers
+        //
         Inputs.Numbers.forEach(b -> {
             try {
-                new NumberParser(b);
+                new NumberListParser(b);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
+        //
+        // Parse paths
+        //
 
+        Inputs.Files.forEach(c->{
+            try {
+                new FileListParser(c);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
 
     }
 
@@ -89,7 +107,7 @@ public class Submitted implements ISubmitted {
 
     @Override
     public IAdded add(Class<?> aClass, BareArgumentTypes bareArgumentTypes) {
-        return new Added(new Numberlist(aClass));
+        return new Added(new NumberList(aClass));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.erg.cpaar.operate;
 
-import com.erg.abst.cpaar.prepare.IFlag;
+import com.erg.abst.cpaar.data.raw.IFlag;
 import com.erg.abst.global.IExecutable;
 import com.erg.cpaar.data.Inputs;
 import com.erg.cpaar.data.Outputs;

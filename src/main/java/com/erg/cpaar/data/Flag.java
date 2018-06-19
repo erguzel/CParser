@@ -1,8 +1,6 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.prepare.IAdded;
-import com.erg.abst.cpaar.prepare.IFlag;
-import com.erg.abst.cpaar.prepare.ISubmitted;
+import com.erg.abst.cpaar.data.raw.IFlag;
 
 public class Flag implements IFlag{
     private String  _name;

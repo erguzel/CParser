@@ -1,12 +1,12 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.prepare.INumberlist;
+import com.erg.abst.cpaar.data.raw.INumberlist;
 
-public class Numberlist implements INumberlist{
+public class NumberList implements INumberlist{
 
     private Class<?> _dataType;
 
-    public Numberlist(Class<?> dataType) {
+    public NumberList(Class<?> dataType) {
         _dataType = dataType;
     }
 

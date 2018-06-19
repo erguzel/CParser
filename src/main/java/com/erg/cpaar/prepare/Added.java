@@ -1,10 +1,12 @@
 package com.erg.cpaar.prepare;
 
+import com.erg.abst.cpaar.data.raw.*;
 import com.erg.abst.cpaar.prepare.*;
 
 public class Added implements IAdded {
 
 
+    private IFileList _pathList;
     private IArgument _argument;
     private IFlag _flag;
     private IOption _option;
@@ -15,6 +17,7 @@ public class Added implements IAdded {
     private boolean IsOption;
     private boolean Isflag;
     private boolean isNumberList;
+    private boolean isPathList;
 
     @Override
     public ISubmitted submit(String keyName) throws Exception {
@@ -58,5 +61,10 @@ public class Added implements IAdded {
         _numberList = numberList;
         isNumberList = true;
 
+    }
+
+    public Added(IFileList pathList){
+        _pathList = pathList;
+        isPathList = true;
     }
 }
