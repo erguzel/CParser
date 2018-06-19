@@ -5,6 +5,7 @@ import com.erg.cpaar.prepare.ParseStarter;
 
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class main {
@@ -25,8 +26,8 @@ public class main {
 
         LinkedHashMap<String ,?> asd = Outputs.flags;
         LinkedHashMap<String ,?> bsd = Outputs.options;
-
-
+        List serverIds = Outputs.options.get("ServerIds");
+        System.out.println("End");
     }
 }
 

@@ -9,7 +9,6 @@ import com.erg.cpaar.data.Option;
 import com.erg.cpaar.operate.FlagParser;
 import com.erg.cpaar.operate.NumberParser;
 import com.erg.cpaar.operate.OptionParser;
-import com.erg.util.parse.TypeParser;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,10 +86,10 @@ public class Submitted implements ISubmitted {
     }
 
 
-    @Override
-    public IAdded add(Class<?> dataType) {
 
-        return new Added(new Numberlist(dataType));
+    @Override
+    public IAdded add(Class<?> aClass, BareArgumentTypes bareArgumentTypes) {
+        return new Added(new Numberlist(aClass));
     }
 
     @Override

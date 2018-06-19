@@ -4,7 +4,6 @@ import com.erg.abst.cpaar.prepare.INumberlist;
 import com.erg.abst.global.IExecutable;
 import com.erg.cpaar.data.Inputs;
 import com.erg.cpaar.data.Outputs;
-import com.erg.util.parse.TypeParser;
 
 public class NumberParser implements IExecutable {
 
@@ -19,7 +18,6 @@ public class NumberParser implements IExecutable {
     public void execute() throws Exception {
 
          Inputs._args.stream().forEach(a->Outputs.numbers.add(Integer.parseInt(a)));
-
 
     }
 }

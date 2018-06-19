@@ -4,7 +4,6 @@ import com.erg.abst.cpaar.BareArgumentTypes;
 import com.erg.abst.cpaar.prepare.IAdded;
 import com.erg.abst.cpaar.prepare.IArgument;
 import com.erg.abst.cpaar.prepare.IParserStarter;
-import com.erg.cpaar.data.Argument;
 import com.erg.cpaar.data.Flag;
 import com.erg.cpaar.data.Numberlist;
 import com.erg.cpaar.data.Option;
@@ -14,8 +13,8 @@ public class ParseStarter implements IParserStarter{
     private IArgument _arg;
 
     @Override
-    public IAdded add(Class<?> dataType) {
-        return new Added(new Numberlist(int.class));
+    public IAdded add(Class<?> aClass, BareArgumentTypes bareArgumentTypes) {
+        return new Added(new Numberlist(aClass));
     }
 
     @Override
