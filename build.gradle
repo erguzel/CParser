@@ -3,6 +3,9 @@ apply plugin: 'maven'
 
 group = 'com.github.erguzel'
 
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
+
 sourceSets{
     main.java.srcDir("src/main/java")
     test.java.srcDir("src/test/java")
@@ -10,9 +13,11 @@ sourceSets{
 allprojects{
     repositories {
         jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
     }
 }
 dependencies {
     compile 'com.github.erguzel:util:master-SNAPSHOT'
+    compile 'com.github.erguzel:abstraction:master-SNAPSHOT'
 }
