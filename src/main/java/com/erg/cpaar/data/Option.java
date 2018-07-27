@@ -1,6 +1,6 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.data.raw.IOption;
+import com.erg.cpaar.abstraction.data.raw.IOption;
 
 public class Option implements IOption {
     private Class<?> _dataType;

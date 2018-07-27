@@ -1,6 +1,6 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.data.raw.INumberlist;
+import com.erg.cpaar.abstraction.data.raw.INumberlist;
 
 public class NumberList implements INumberlist{
 

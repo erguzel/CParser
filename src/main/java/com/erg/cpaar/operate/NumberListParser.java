@@ -1,7 +1,7 @@
 package com.erg.cpaar.operate;
 
-import com.erg.abst.cpaar.data.raw.INumberlist;
-import com.erg.abst.global.IExecutable;
+import com.erg.cpaar.abstraction.data.raw.INumberlist;
+import com.erg.cpaar.abstraction.global.IExecutable;
 import com.erg.cpaar.data.Inputs;
 import com.erg.cpaar.data.Outputs;
 

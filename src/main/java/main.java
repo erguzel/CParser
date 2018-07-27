@@ -1,5 +1,5 @@
-import com.erg.abst.cpaar.BareArgumentTypes;
-import com.erg.abst.cpaar.prepare.IParserStarter;
+import com.erg.cpaar.abstraction.BareArgumentTypes;
+import com.erg.cpaar.abstraction.prepare.IParserStarter;
 import com.erg.cpaar.data.Outputs;
 import com.erg.cpaar.prepare.ParseStarter;
 import java.util.LinkedHashMap;

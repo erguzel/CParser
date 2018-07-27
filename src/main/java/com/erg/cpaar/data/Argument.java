@@ -1,6 +1,6 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.data.raw.IArgument;
+import com.erg.cpaar.abstraction.data.raw.IArgument;
 
 public class Argument implements IArgument {
     private Class<?> _dataType;

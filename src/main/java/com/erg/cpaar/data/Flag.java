@@ -1,6 +1,6 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.data.raw.IFlag;
+import com.erg.cpaar.abstraction.data.raw.IFlag;
 
 public class Flag implements IFlag{
     private String  _name;

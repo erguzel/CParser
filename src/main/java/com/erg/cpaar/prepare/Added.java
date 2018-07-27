@@ -1,7 +1,7 @@
 package com.erg.cpaar.prepare;
 
-import com.erg.abst.cpaar.data.raw.*;
-import com.erg.abst.cpaar.prepare.*;
+import com.erg.cpaar.abstraction.data.raw.*;
+import com.erg.cpaar.abstraction.prepare.*;
 
 public class Added implements IAdded {
 

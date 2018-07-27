@@ -1,11 +1,11 @@
 package com.erg.cpaar.prepare;
 
-import com.erg.abst.cpaar.BareArgumentTypes;
-import com.erg.abst.cpaar.data.raw.IArgument;
-import com.erg.abst.cpaar.data.raw.IFlag;
-import com.erg.abst.cpaar.data.raw.INumberlist;
-import com.erg.abst.cpaar.data.raw.IOption;
-import com.erg.abst.cpaar.prepare.*;
+import com.erg.cpaar.abstraction.BareArgumentTypes;
+import com.erg.cpaar.abstraction.data.raw.IArgument;
+import com.erg.cpaar.abstraction.data.raw.IFlag;
+import com.erg.cpaar.abstraction.data.raw.INumberlist;
+import com.erg.cpaar.abstraction.data.raw.IOption;
+import com.erg.cpaar.abstraction.prepare.*;
 import com.erg.cpaar.data.Flag;
 import com.erg.cpaar.data.Inputs;
 import com.erg.cpaar.data.NumberList;

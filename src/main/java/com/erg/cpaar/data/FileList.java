@@ -1,7 +1,7 @@
 package com.erg.cpaar.data;
 
-import com.erg.abst.cpaar.data.raw.IFileList;
-import com.erg.abst.enm.ExtensionTypes;
+import com.erg.cpaar.abstraction.data.raw.IFileList;
+import com.erg.cpaar.abstraction.enm.ExtensionTypes;
 
 public class FileList implements IFileList {
 
