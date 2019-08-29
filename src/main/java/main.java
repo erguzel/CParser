@@ -1,9 +1,9 @@
-import com.erg.cpaar.abstraction.BareArgumentTypes;
-import com.erg.cpaar.abstraction.prepare.IParserStarter;
-import com.erg.cpaar.data.Outputs;
-import com.erg.cpaar.prepare.ParseStarter;
-import java.util.LinkedHashMap;
+import com.erg.cpaar.CmdFlag;
+import com.erg.cpaar.CmdOption;
+import com.erg.cpaar.ParserStarter;
+
 import java.util.List;
+import java.util.Map;
 
 
 public class main {
@@ -11,25 +11,20 @@ public class main {
 
     public static void main(String[] args) throws Exception {
 
-        IParserStarter ps = new ParseStarter();
-        ps.addOption("-s",Integer.class,true)
-                .submit("SensorId")
-                .addOption("-f",String.class,true)
-                .submit("FilePaths")
-                .addFlag("-imp")
-                .submit("IsMapReduce")
-                .addOption("-sid",String.class,false)
-                .submit("ServerIds")
-                .add(String.class, BareArgumentTypes.file)
-                .submit("Resources")
-                .parse(args);
+        new ParserStarter()
+                .AddFlag(new CmdFlag("IsSaveMode","-sv",false))
+                .AddOption(new CmdOption("InputFiles","-f",String.class,true))
+                .AddOption(new CmdOption("OutDir","-out",String.class,false))
+                .AddFlag(new CmdFlag("IsHelp","-help",false))
+                .AddFlag(new CmdFlag("IsVerbose","-v",false))
+                .AddFlag(new CmdFlag("IsCredentials","-a",false))
+                .Parse(args);
 
-        LinkedHashMap<String ,?> asd = Outputs.flags;
-        LinkedHashMap<String ,?> bsd = Outputs.options;
-        List serverIds = Outputs.options.get("ServerIds");
-        boolean isstat = Outputs.flags.get("IsMapReduce");
-        List nums = Outputs.numbers;
-        System.out.println("End");
+
+        Map<Object,Boolean> asdasd =    ParserStarter.ParsedOutputs.CmdFlags;
+        Map<Object,List<Object>> objectList= ParserStarter.ParsedOutputs.CmdOptions;
+        Map<Object,List<Object>> objectListMap = ParserStarter.ParsedOutputs.CmdKeyValuePairs;
+
     }
 }
 
