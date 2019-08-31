@@ -1,4 +1,4 @@
-#INTRODUCTION
+###INTRODUCTION
 
 cpaar is a generic command line parsing tool for java applications. 
 
@@ -6,7 +6,7 @@ cpaar is a generic command line parsing tool for java applications.
 
 Reference cpaar to your gradle project after adding jitpack repository as
 
-´´´
+```
 allprojects{
     repositories {
         jcenter()
@@ -17,6 +17,6 @@ allprojects{
 dependencies {
     compile 'com.github.erguzel:cpaar:master-SNAPSHOT'
 }
-´´´
+```
 
 
